@@ -51,6 +51,22 @@ mockups/
 3. **See onboarding flow**: `onboarding-step1.html` → ... → `onboarding-step5.html`
 4. **Explore main app**: `dashboard.html` (best starting point)
 
+## ⚛️ React Frontend
+A modern React implementation of the landing page is available in the `frontend` directory.
+
+### Quick Start
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend features:
+- **Vite + React + TypeScript** setup
+- **Tailwind CSS** for styling
+- **Responsive Design** matching the latest mockups
+- **Custom Animations** and Glassmorphism effects
+
 ## 📄 Page Descriptions
 
 ### Authentication & Onboarding
