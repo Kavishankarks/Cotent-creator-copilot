@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const LandingIntro: React.FC = () => {
     const workflowSteps = [
@@ -10,6 +11,16 @@ const LandingIntro: React.FC = () => {
         { icon: 'closed_caption', label: 'Captions' },
         { icon: 'download', label: 'Export' },
     ];
+
+    // Auto-cycling active step for animation
+    const [activeStep, setActiveStep] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveStep((prev) => (prev + 1) % workflowSteps.length);
+        }, 2000); // Slower interval for 3D effect
+        return () => clearInterval(interval);
+    }, [workflowSteps.length]);
 
     const platforms = [
         { name: 'Reels', icon: 'photo_camera' },
@@ -33,7 +44,7 @@ const LandingIntro: React.FC = () => {
                 <div className="text-slate-900 dark:text-white flex size-8 sm:size-10 items-center justify-center cursor-pointer">
                     <span className="material-symbols-outlined text-xl sm:text-2xl">menu</span>
                 </div>
-                <h2 className="text-slate-900 dark:text-white text-base sm:text-lg font-bold leading-tight tracking-tight flex-1 text-center">Content Creator Copilot</h2>
+                <h2 className="text-slate-900 dark:text-white text-base sm:text-lg font-bold leading-tight tracking-tight flex-1 text-center">Rolit Copilot for Content Creator Copilot</h2>
                 <div className="size-8 sm:size-10"></div>
             </div>
 
@@ -46,13 +57,21 @@ const LandingIntro: React.FC = () => {
                     </div>
                     <div className="relative flex h-full min-h-[80vh] sm:min-h-[85vh] flex-col items-center justify-end px-4 sm:px-6 pb-16 sm:pb-20 text-center">
                         <div className="flex flex-col gap-3 sm:gap-4 max-w-lg">
-                            <span className="inline-flex self-center px-3 py-1 rounded-full bg-primary/20 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-primary/30">Next-Gen AI SaaS</span>
+                            <span className="inline-flex self-center px-3 py-1 rounded-full bg-primary/20 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-primary/30">Copilot for Content Creators</span>
                             <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]">
                                 Transform Ideas Into <br className="hidden sm:block" />Video Packages
                             </h1>
-                            <p className="text-slate-200 text-sm sm:text-base font-normal leading-relaxed opacity-90 px-2">
-                                A production-grade multi-tenant SaaS platform that helps creators generate short-form and long-form content with AI.
-                            </p>
+                            <div className="h-16 sm:h-20 flex items-start justify-center">
+                                <p className="text-slate-200 text-sm sm:text-base font-normal leading-relaxed opacity-90 px-2 max-w-xl">
+                                    <TypingEffect
+                                        words={[
+                                            "Automate your entire creative workflow: from rough ideas to polished video exports in minutes.",
+                                            "Your personal AI studio that scripts, voices, captions, and edits for you 24/7.",
+                                            "Generate viral-ready Reels, Shorts, and TikToks with a production-grade AI Copilot."
+                                        ]}
+                                    />
+                                </p>
+                            </div>
                             <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row gap-3 w-full sm:w-auto sm:justify-center">
                                 <button className="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 sm:h-14 px-6 sm:px-8 bg-primary text-background-dark text-sm sm:text-base font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20">
                                     Get Started Free
@@ -66,48 +85,91 @@ const LandingIntro: React.FC = () => {
                 </div>
 
                 {/* AI Workflow Pipeline Section */}
-                <section className="px-4 sm:px-6 py-10 sm:py-16 bg-slate-50 dark:bg-[#0d181c]">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-8 sm:mb-12">
+                <section className="px-4 sm:px-6 py-10 sm:py-16 bg-slate-50 dark:bg-[#0d181c] overflow-hidden">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="text-center mb-8 sm:mb-16">
                             <h2 className="text-slate-900 dark:text-white text-xl sm:text-2xl md:text-3xl font-bold leading-tight tracking-tight mb-2 sm:mb-3">AI-Powered Workflow</h2>
                             <p className="text-slate-500 dark:text-[#9db2b9] text-sm sm:text-base max-w-md mx-auto">From idea to export pack in minutes, not hours.</p>
                         </div>
-                        {/* Desktop: Single row with arrows */}
-                        <div className="hidden md:flex items-center justify-center gap-1">
-                            {workflowSteps.map((step, index) => (
-                                <React.Fragment key={step.label}>
-                                    <div className="flex flex-col items-center gap-2 px-3">
-                                        <div className="size-14 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center border border-primary/30">
-                                            <span className="material-symbols-outlined text-primary text-2xl">{step.icon}</span>
-                                        </div>
-                                        <span className="text-xs font-medium text-slate-600 dark:text-slate-400 text-center whitespace-nowrap">{step.label}</span>
-                                    </div>
-                                    {index < workflowSteps.length - 1 && (
-                                        <div className="flex items-center text-primary/50 px-1">
-                                            <span className="material-symbols-outlined text-xl">chevron_right</span>
-                                        </div>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </div>
-                        {/* Mobile: Horizontal scroll */}
-                        <div className="md:hidden overflow-x-auto pb-4 -mx-4 px-4">
-                            <div className="flex items-center gap-2 min-w-max">
-                                {workflowSteps.map((step, index) => (
-                                    <React.Fragment key={step.label}>
-                                        <div className="flex flex-col items-center gap-1.5 px-2">
-                                            <div className="size-11 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center border border-primary/30">
-                                                <span className="material-symbols-outlined text-primary text-lg">{step.icon}</span>
+
+                        {/* 3D Workflow Animation Container */}
+                        <div className="relative flex items-center justify-center py-10 perspective-1000">
+                            {/* Connecting Line */}
+                            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 dark:bg-white/10 -translate-y-1/2 hidden md:block"></div>
+                            {/* Active Beam */}
+                            <motion.div
+                                className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent -translate-y-1/2 hidden md:block z-0"
+                                animate={{
+                                    left: `${(activeStep / (workflowSteps.length - 1)) * 100}%`,
+                                    translateX: '-50%'
+                                }}
+                                transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                                style={{ width: '300px' }}
+                            />
+
+                            {/* Steps Container */}
+                            <div className="flex flex-row items-center justify-center gap-2 md:gap-8 w-full">
+                                {workflowSteps.map((step, index) => {
+                                    const isActive = index === activeStep;
+                                    const isPast = index < activeStep;
+
+                                    return (
+                                        <div key={step.label} className="relative z-10 flex flex-col items-center gap-4">
+                                            {/* 3D Icon Container */}
+                                            <div className="relative">
+                                                <AnimatePresence mode="wait">
+                                                    {isActive && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, scale: 0.5 }}
+                                                            animate={{ opacity: 1, scale: 1.5 }}
+                                                            exit={{ opacity: 0, scale: 0.5 }}
+                                                            className="absolute inset-0 bg-primary/30 blur-xl rounded-full"
+                                                        />
+                                                    )}
+                                                </AnimatePresence>
+
+                                                <motion.div
+                                                    className={`relative size-12 md:size-16 rounded-2xl flex items-center justify-center border-2 backdrop-blur-md transition-shadow duration-300 ${isActive
+                                                        ? 'bg-primary border-primary shadow-[0_0_30px_rgba(var(--color-primary),0.5)] z-20'
+                                                        : isPast
+                                                            ? 'bg-primary/20 border-primary/50'
+                                                            : 'bg-white/5 border-white/10'
+                                                        }`}
+                                                    animate={{
+                                                        y: isActive ? -10 : 0,
+                                                        scale: isActive ? 1.2 : 1,
+                                                        rotateY: isActive ? 360 : 0,
+                                                        z: isActive ? 50 : 0
+                                                    }}
+                                                    transition={{
+                                                        type: "spring",
+                                                        stiffness: 260,
+                                                        damping: 20,
+                                                        rotateY: { duration: 0.8, ease: "easeInOut" }
+                                                    }}
+                                                >
+                                                    <span className={`material-symbols-outlined text-xl md:text-3xl ${isActive ? 'text-background-dark' : isPast ? 'text-primary' : 'text-slate-400'
+                                                        }`}>
+                                                        {step.icon}
+                                                    </span>
+                                                </motion.div>
                                             </div>
-                                            <span className="text-[10px] font-medium text-slate-600 dark:text-slate-400 text-center whitespace-nowrap">{step.label}</span>
+
+                                            {/* Label with 3D fade */}
+                                            <motion.span
+                                                className={`text-[10px] md:text-sm font-bold text-center absolute -bottom-8 md:-bottom-10 whitespace-nowrap ${isActive ? 'text-primary' : 'text-slate-500'
+                                                    }`}
+                                                animate={{
+                                                    opacity: isActive ? 1 : 0.5,
+                                                    y: isActive ? 0 : 5,
+                                                    scale: isActive ? 1.1 : 1
+                                                }}
+                                            >
+                                                {step.label}
+                                            </motion.span>
                                         </div>
-                                        {index < workflowSteps.length - 1 && (
-                                            <div className="flex items-center text-primary/40">
-                                                <span className="material-symbols-outlined text-base">chevron_right</span>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -257,3 +319,49 @@ const LandingIntro: React.FC = () => {
 };
 
 export default LandingIntro;
+
+const TypingEffect: React.FC<{ words: string[] }> = ({ words }) => {
+    const [index, setIndex] = useState(0);
+    const [subIndex, setSubIndex] = useState(0);
+    const [reverse, setReverse] = useState(false);
+    const [blink, setBlink] = useState(true);
+
+    // Blinking cursor
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setBlink((prev) => !prev);
+        }, 500);
+        return () => clearTimeout(timeout);
+    }, [blink]);
+
+    // Typing logic
+    useEffect(() => {
+        if (subIndex === words[index].length + 1 && !reverse) {
+            // Finished typing word, wait before deleting
+            const timeout = setTimeout(() => {
+                setReverse(true);
+            }, 3000);
+            return () => clearTimeout(timeout);
+        }
+
+        if (subIndex === 0 && reverse) {
+            // Finished deleting, move to next word
+            setReverse(false);
+            setIndex((prev) => (prev + 1) % words.length);
+            return;
+        }
+
+        const timeout = setTimeout(() => {
+            setSubIndex((prev) => prev + (reverse ? -1 : 1));
+        }, reverse ? 30 : 50); // Typing speed vs deleting speed
+
+        return () => clearTimeout(timeout);
+    }, [subIndex, index, reverse, words]);
+
+    return (
+        <span>
+            {words[index].substring(0, subIndex)}
+            <span className={`inline-block w-0.5 h-4 ml-1 bg-primary align-middle ${blink ? 'opacity-100' : 'opacity-0'}`}></span>
+        </span>
+    );
+};

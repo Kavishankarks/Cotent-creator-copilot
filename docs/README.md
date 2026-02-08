@@ -1,6 +1,6 @@
-# Content Creator Copilot - UI Mockups
+# Rolit Copilot for Content Creator Copilot - UI Mockups
 
-Complete UI mockup collection for the Content Creator Copilot SaaS platform. This is a production-grade multi-tenant SaaS application designed to help creators generate short-form and long-form content with AI.
+Complete UI mockup collection for the Rolit Copilot for Content Creator Copilot SaaS platform. This is a production-grade multi-tenant SaaS application designed to help creators generate short-form and long-form content with AI.
 
 ## 🎯 Product Overview
 
