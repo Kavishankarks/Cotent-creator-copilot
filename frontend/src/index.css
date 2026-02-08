@@ -4,6 +4,7 @@
 
 @layer base {
     body {
+        @apply bg-background text-text-main;
         font-family: 'Space Grotesk', sans-serif;
         -webkit-font-smoothing: antialiased;
     }
@@ -11,10 +12,18 @@
 
 @layer components {
     .glass-card {
-        @apply bg-black/60 backdrop-blur-xl border border-white/10;
+        @apply bg-surface/50 backdrop-blur-xl border border-white/5 shadow-xl;
+    }
+
+    .glass-card-hover {
+        @apply transition-all duration-300 hover:bg-surface-highlight/50 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1;
     }
 
     .hero-gradient {
-        background: linear-gradient(180deg, rgba(16, 29, 34, 0) 0%, rgba(16, 29, 34, 1) 90%);
+        background: radial-gradient(circle at center, rgba(14, 165, 233, 0.15) 0%, rgba(11, 17, 33, 0) 70%);
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-dark to-primary;
     }
 }
