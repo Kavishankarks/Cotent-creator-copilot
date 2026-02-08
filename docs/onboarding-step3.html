@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding - Sample Content - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width: 700px;">
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">Step 3 of 5</span>
+          <span class="text-sm text-gray-500">60% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 60%;"></div>
+        </div>
+      </div>
+
+      <div class="text-center mb-8">
+        <h2>Share your best content</h2>
+        <p class="text-gray-600 mt-2">Provide 3 examples of your content so we can learn your style</p>
+      </div>
+
+      <form>
+        <div class="tabs mb-6">
+          <ul class="tabs-list">
+            <li><a href="#" class="tab active">Paste Links</a></li>
+            <li><a href="#" class="tab">Upload Transcript</a></li>
+            <li><a href="#" class="tab">Enter Text</a></li>
+          </ul>
+        </div>
+
+        <!-- Tab 1: Paste Links -->
+        <div id="paste-links-tab">
+          <div class="form-group">
+            <label class="form-label">Example 1</label>
+            <input type="url" class="form-input" placeholder="https://youtube.com/watch?v=...">
+            <span class="form-hint">Paste a link to your video or post</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Example 2</label>
+            <input type="url" class="form-input" placeholder="https://instagram.com/reel/...">
+            <span class="form-hint">Paste a link to your video or post</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Example 3</label>
+            <input type="url" class="form-input" placeholder="https://tiktok.com/@user/video/...">
+            <span class="form-hint">Paste a link to your video or post</span>
+          </div>
+
+          <div class="alert alert-info">
+            <strong>What we'll analyze:</strong><br>
+            We'll extract the captions, script, and style patterns from your content to understand your unique voice and format preferences.
+          </div>
+        </div>
+
+        <!-- Tab 2: Upload Transcript (Hidden by default) -->
+        <div id="upload-transcript-tab" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Upload Transcript Files</label>
+            <div style="border: 2px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 3rem; text-align: center; cursor: pointer;">
+              <div style="font-size: 2rem; margin-bottom: 1rem;">📄</div>
+              <p class="font-medium mb-2">Click to upload or drag and drop</p>
+              <p class="text-sm text-gray-500">SRT, VTT, TXT, or DOCX (max 5MB each)</p>
+            </div>
+            <span class="form-hint">Upload transcripts from your best-performing content</span>
+          </div>
+
+          <div class="mt-4">
+            <!-- Sample uploaded file -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-md mb-2">
+              <div class="flex items-center gap-3">
+                <span>📄</span>
+                <div>
+                  <div class="font-medium text-sm">my-best-video-transcript.txt</div>
+                  <div class="text-xs text-gray-500">2.4 KB</div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Enter Text (Hidden by default) -->
+        <div id="enter-text-tab" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Sample Content 1</label>
+            <textarea class="form-textarea" rows="4" placeholder="Paste the script or caption from your content..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Sample Content 2</label>
+            <textarea class="form-textarea" rows="4" placeholder="Paste the script or caption from your content..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Sample Content 3</label>
+            <textarea class="form-textarea" rows="4" placeholder="Paste the script or caption from your content..."></textarea>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-6">
+          <a href="onboarding-step2.html" class="btn btn-outline">← Back</a>
+          <div class="flex gap-2">
+            <button type="button" class="btn btn-secondary">Skip for now</button>
+            <a href="onboarding-step4.html" class="btn btn-primary">Analyze My Style</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          🎬 Creator Copilot
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Workspace Switcher -->
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+
+        <!-- Primary Navigation -->
+        <a href="dashboard.html" class="nav-item active">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <!-- Usage Meter -->
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+
+        <!-- User Profile -->
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">
+            JD
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="flex items-center gap-4">
+          <h1 class="text-lg font-semibold">Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="btn btn-primary">
+            ✨ New Project
+          </button>
+          <button class="btn btn-icon btn-outline">
+            🔔
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- Trial Banner -->
+        <div class="alert alert-warning mb-6">
+          <strong>Free Trial Active:</strong> You have 1 project remaining. <a href="billing.html" class="font-semibold">Upgrade to Creator plan</a> for unlimited projects.
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-4 gap-6 mb-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Total Projects</div>
+              <div class="text-2xl font-bold">12</div>
+              <div class="text-xs text-success-500 mt-1">↑ 3 this month</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Videos Generated</div>
+              <div class="text-2xl font-bold">8</div>
+              <div class="text-xs text-success-500 mt-1">↑ 2 this week</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Total Duration</div>
+              <div class="text-2xl font-bold">14m</div>
+              <div class="text-xs text-gray-500 mt-1">of content</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Exports</div>
+              <div class="text-2xl font-bold">6</div>
+              <div class="text-xs text-gray-500 mt-1">downloads</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Projects -->
+        <div class="card mb-8">
+          <div class="card-header">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">Recent Projects</h3>
+              <a href="projects.html" class="text-sm">View all →</a>
+            </div>
+          </div>
+          <div class="card-body" style="padding: 0;">
+            <div class="table-container" style="border: none;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Platform</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="font-medium">5 Productivity Tips for Remote Work</div>
+                      <div class="text-xs text-gray-500">60 seconds</div>
+                    </td>
+                    <td><span class="badge badge-primary">Instagram Reels</span></td>
+                    <td><span class="badge badge-success">Completed</span></td>
+                    <td>Today, 2:30 PM</td>
+                    <td>
+                      <a href="project-workspace.html" class="btn btn-sm btn-outline">Open</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="font-medium">Morning Routine That Changed My Life</div>
+                      <div class="text-xs text-gray-500">90 seconds</div>
+                    </td>
+                    <td><span class="badge badge-primary">YouTube Shorts</span></td>
+                    <td>
+                      <span class="badge badge-warning">In Progress</span>
+                    </td>
+                    <td>Yesterday, 4:15 PM</td>
+                    <td>
+                      <a href="project-workspace.html" class="btn btn-sm btn-outline">Open</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="font-medium">Top 3 Mistakes New Creators Make</div>
+                      <div class="text-xs text-gray-500">75 seconds</div>
+                    </td>
+                    <td><span class="badge badge-primary">TikTok</span></td>
+                    <td><span class="badge badge-success">Completed</span></td>
+                    <td>2 days ago</td>
+                    <td>
+                      <a href="project-workspace.html" class="btn btn-sm btn-outline">Open</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-2 gap-6">
+          <div class="card">
+            <div class="card-body text-center" style="padding: 3rem;">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">🎬</div>
+              <h3 class="mb-2">Start a New Project</h3>
+              <p class="text-sm text-gray-600 mb-4">Turn your ideas into engaging content in minutes</p>
+              <button class="btn btn-primary">Create Project</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body text-center" style="padding: 3rem;">
+              <div style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
+              <h3 class="mb-2">Browse Templates</h3>
+              <p class="text-sm text-gray-600 mb-4">Get started faster with pre-built templates</p>
+              <button class="btn btn-outline">View Templates</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

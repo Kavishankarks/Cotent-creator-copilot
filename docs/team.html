@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎬 Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item active">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1 class="text-lg font-semibold">Team Management</h1>
+          <p class="text-sm text-gray-600">Manage workspace members and permissions</p>
+        </div>
+        <button class="btn btn-primary">+ Invite Member</button>
+      </header>
+
+      <div class="content-area">
+        <!-- Tabs -->
+        <div class="tabs mb-6">
+          <ul class="tabs-list">
+            <li><a href="#" class="tab active">Members</a></li>
+            <li><a href="#" class="tab">Pending Invitations</a></li>
+            <li><a href="#" class="tab">Audit Log</a></li>
+          </ul>
+        </div>
+
+        <!-- Seat Usage Alert -->
+        <div class="alert alert-warning mb-6">
+          <strong>Seat Limit:</strong> You're using 3 of 3 seats on the Free Trial plan. <a href="billing.html" class="font-semibold">Upgrade to add more members</a>
+        </div>
+
+        <!-- Members List -->
+        <div class="card">
+          <div class="card-header">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">Team Members (3)</h3>
+              <input type="search" class="form-input" placeholder="Search members..." style="width: 250px;">
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Member</th>
+                  <th>Role</th>
+                  <th>Projects</th>
+                  <th>Last Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+                      <div>
+                        <div class="font-medium">Jane Doe</div>
+                        <div class="text-xs text-gray-500">jane@example.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge badge-primary">Owner</span>
+                  </td>
+                  <td>8 projects</td>
+                  <td>Just now</td>
+                  <td>
+                    <span class="text-sm text-gray-500">You</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--success-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--success-700);">MS</div>
+                      <div>
+                        <div class="font-medium">Michael Smith</div>
+                        <div class="text-xs text-gray-500">michael@example.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <select class="form-select" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                      <option>Admin</option>
+                      <option>Editor</option>
+                      <option>Viewer</option>
+                    </select>
+                  </td>
+                  <td>3 projects</td>
+                  <td>2 hours ago</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">Remove</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--warning-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--warning-700);">EJ</div>
+                      <div>
+                        <div class="font-medium">Emily Johnson</div>
+                        <div class="text-xs text-gray-500">emily@example.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <select class="form-select" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                      <option>Admin</option>
+                      <option selected>Editor</option>
+                      <option>Viewer</option>
+                    </select>
+                  </td>
+                  <td>1 project</td>
+                  <td>Yesterday</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Role Descriptions -->
+        <div class="grid grid-cols-4 gap-6 mt-8">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-2">Owner</h4>
+              <p class="text-sm text-gray-600 mb-3">Full control over workspace, billing, and all members.</p>
+              <ul class="text-xs text-gray-600" style="list-style: none; padding: 0;">
+                <li>✓ All permissions</li>
+                <li>✓ Manage billing</li>
+                <li>✓ Delete workspace</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-2">Admin</h4>
+              <p class="text-sm text-gray-600 mb-3">Manage members and projects, but cannot change billing.</p>
+              <ul class="text-xs text-gray-600" style="list-style: none; padding: 0;">
+                <li>✓ Create projects</li>
+                <li>✓ Invite members</li>
+                <li>✓ Manage settings</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-2">Editor</h4>
+              <p class="text-sm text-gray-600 mb-3">Create and edit projects, but cannot manage members.</p>
+              <ul class="text-xs text-gray-600" style="list-style: none; padding: 0;">
+                <li>✓ Create projects</li>
+                <li>✓ Edit projects</li>
+                <li>✗ Manage members</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-2">Viewer</h4>
+              <p class="text-sm text-gray-600 mb-3">View-only access to projects and exports.</p>
+              <ul class="text-xs text-gray-600" style="list-style: none; padding: 0;">
+                <li>✓ View projects</li>
+                <li>✓ Download exports</li>
+                <li>✗ Edit projects</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Invitations (Hidden Tab Content) -->
+        <div id="invitations" style="display: none;">
+          <div class="card mt-6">
+            <div class="card-header">
+              <h3 class="card-title">Pending Invitations (2)</h3>
+            </div>
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Invited By</th>
+                    <th>Sent</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>sarah@example.com</td>
+                    <td><span class="badge badge-gray">Editor</span></td>
+                    <td>Jane Doe</td>
+                    <td>2 days ago</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline">Resend</button>
+                      <button class="btn btn-sm btn-outline ml-2">Cancel</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>david@example.com</td>
+                    <td><span class="badge badge-gray">Viewer</span></td>
+                    <td>Jane Doe</td>
+                    <td>5 days ago</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline">Resend</button>
+                      <button class="btn btn-sm btn-outline ml-2">Cancel</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Invite Modal (Hidden) -->
+  <div class="modal-overlay" style="display: none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Invite Team Member</h3>
+        <button class="btn btn-icon">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label form-label-required">Email Address</label>
+          <input type="email" class="form-input" placeholder="colleague@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label form-label-required">Role</label>
+          <select class="form-select">
+            <option value="">Select a role</option>
+            <option value="admin">Admin</option>
+            <option value="editor" selected>Editor</option>
+            <option value="viewer">Viewer</option>
+          </select>
+          <span class="form-hint">Editors can create and edit projects but cannot manage members.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Personal Message (Optional)</label>
+          <textarea class="form-textarea" rows="3" placeholder="Add a personal message to the invitation email..."></textarea>
+        </div>
+
+        <div class="alert alert-warning">
+          <strong>Note:</strong> This will use 1 of your 3 available seats. <a href="billing.html">Upgrade plan</a> to add more seats.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline">Cancel</button>
+        <button class="btn btn-primary">Send Invitation</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

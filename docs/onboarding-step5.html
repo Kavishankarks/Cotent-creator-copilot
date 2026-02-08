@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding - First Project - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width: 700px;">
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">Step 5 of 5</span>
+          <span class="text-sm text-gray-500">100% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <div class="text-center mb-8">
+        <h2>Create your first video</h2>
+        <p class="text-gray-600 mt-2">Let's generate your first piece of content together!</p>
+      </div>
+
+      <form>
+        <div class="form-group">
+          <label class="form-label form-label-required">Content Idea</label>
+          <textarea class="form-textarea" rows="3" placeholder="e.g., 5 productivity tips for remote workers" required></textarea>
+          <span class="form-hint">What do you want to create? Be as specific or general as you like.</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="form-group">
+            <label class="form-label form-label-required">Platform</label>
+            <select class="form-select" required>
+              <option value="">Select platform</option>
+              <option value="reels">Instagram Reels</option>
+              <option value="shorts">YouTube Shorts</option>
+              <option value="youtube">YouTube Video</option>
+              <option value="tiktok">TikTok</option>
+              <option value="linkedin">LinkedIn</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label form-label-required">Duration</label>
+            <select class="form-select" required>
+              <option value="">Select duration</option>
+              <option value="15">15 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="60">60 seconds</option>
+              <option value="90">90 seconds</option>
+              <option value="custom">Custom duration</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Keywords (Optional)</label>
+          <input type="text" class="form-input" placeholder="productivity, remote work, tips">
+          <span class="form-hint">Keywords to optimize for SEO and discovery</span>
+        </div>
+
+        <div class="form-group">
+          <label class="flex items-center">
+            <input type="checkbox" class="form-checkbox" checked>
+            <span class="text-sm ml-2">Generate voiceover with AI (OpenAI TTS)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="flex items-center">
+            <input type="checkbox" class="form-checkbox" checked>
+            <span class="text-sm ml-2">Include captions (SRT/VTT)</span>
+          </label>
+        </div>
+
+        <div class="card mt-6" style="background: var(--primary-50); border-color: var(--primary-200);">
+          <div class="card-body">
+            <h4 class="mb-2">What we'll generate:</h4>
+            <ul style="list-style: none; padding: 0;">
+              <li class="mb-2">✓ Complete script based on your Style Card</li>
+              <li class="mb-2">✓ Scene breakdown with visual prompts</li>
+              <li class="mb-2">✓ AI voiceover in your selected voice</li>
+              <li class="mb-2">✓ Transcription with timestamps</li>
+              <li class="mb-2">✓ Captions (SRT/VTT format)</li>
+              <li class="mb-2">✓ Export pack with all assets</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-info mt-6">
+          <strong>Free Trial:</strong> You're on the Free Trial plan. You get 3 video projects to start. <a href="billing.html">View plans</a>
+        </div>
+
+        <div class="flex justify-between mt-6">
+          <a href="onboarding-step4.html" class="btn btn-outline">← Back</a>
+          <button type="submit" class="btn btn-primary btn-lg">Generate My First Video! 🚀</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

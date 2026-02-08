@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎬 Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item active">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1 class="text-lg font-semibold">Analytics</h1>
+          <p class="text-sm text-gray-600">Track your content creation performance</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <select class="form-select" style="width: 180px;">
+            <option>Last 7 days</option>
+            <option selected>Last 30 days</option>
+            <option>Last 90 days</option>
+            <option>All time</option>
+          </select>
+          <button class="btn btn-outline">📥 Export Report</button>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Key Metrics -->
+        <div class="grid grid-cols-4 gap-6 mb-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Total Projects</div>
+              <div class="text-3xl font-bold">12</div>
+              <div class="text-xs text-success-500 mt-2">↑ 25% vs last period</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Completed Videos</div>
+              <div class="text-3xl font-bold">8</div>
+              <div class="text-xs text-success-500 mt-2">↑ 33% vs last period</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Total Duration</div>
+              <div class="text-3xl font-bold">14:32</div>
+              <div class="text-xs text-gray-500 mt-2">minutes of content</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Export Rate</div>
+              <div class="text-3xl font-bold">75%</div>
+              <div class="text-xs text-warning-500 mt-2">↓ 5% vs last period</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <!-- Projects Over Time -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Projects Created</h3>
+            </div>
+            <div class="card-body">
+              <div style="height: 250px; display: flex; align-items: flex-end; justify-content: space-around; gap: 8px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <div style="width: 100%; background: var(--primary-500); border-radius: 4px 4px 0 0;" data-height="60"></div>
+                  <span class="text-xs text-gray-500 mt-2">Week 1</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <div style="width: 100%; background: var(--primary-500); border-radius: 4px 4px 0 0;" data-height="80"></div>
+                  <span class="text-xs text-gray-500 mt-2">Week 2</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <div style="width: 100%; background: var(--primary-500); border-radius: 4px 4px 0 0;" data-height="45"></div>
+                  <span class="text-xs text-gray-500 mt-2">Week 3</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                  <div style="width: 100%; background: var(--primary-500); border-radius: 4px 4px 0 0;" data-height="100"></div>
+                  <span class="text-xs text-gray-500 mt-2">Week 4</span>
+                </div>
+              </div>
+              <style>
+                [data-height="60"] { height: 60%; }
+                [data-height="80"] { height: 80%; }
+                [data-height="45"] { height: 45%; }
+                [data-height="100"] { height: 100%; }
+              </style>
+            </div>
+          </div>
+
+          <!-- Platform Distribution -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Content by Platform</h3>
+            </div>
+            <div class="card-body">
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">Instagram Reels</span>
+                    <span class="text-sm font-medium">5 projects (42%)</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 42%; background: #E1306C;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">YouTube Shorts</span>
+                    <span class="text-sm font-medium">4 projects (33%)</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33%; background: #FF0000;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">TikTok</span>
+                    <span class="text-sm font-medium">2 projects (17%)</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 17%; background: #000000;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">LinkedIn</span>
+                    <span class="text-sm font-medium">1 project (8%)</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 8%; background: #0077B5;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage Metrics -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Resource Usage (Last 30 Days)</h3>
+          </div>
+          <div class="card-body">
+            <div class="grid grid-cols-3 gap-6">
+              <div>
+                <div class="text-sm text-gray-600 mb-3">TTS Characters</div>
+                <div class="text-2xl font-bold mb-2">8,247</div>
+                <div class="progress-bar mb-2">
+                  <div class="progress-fill high" style="width: 82%;"></div>
+                </div>
+                <div class="text-xs text-gray-500">82% of quota used</div>
+              </div>
+
+              <div>
+                <div class="text-sm text-gray-600 mb-3">Whisper Minutes</div>
+                <div class="text-2xl font-bold mb-2">2.8</div>
+                <div class="progress-bar mb-2">
+                  <div class="progress-fill medium" style="width: 56%;"></div>
+                </div>
+                <div class="text-xs text-gray-500">56% of quota used</div>
+              </div>
+
+              <div>
+                <div class="text-sm text-gray-600 mb-3">Storage Used</div>
+                <div class="text-2xl font-bold mb-2">142 MB</div>
+                <div class="progress-bar mb-2">
+                  <div class="progress-fill low" style="width: 14%;"></div>
+                </div>
+                <div class="text-xs text-gray-500">14% of 1 GB quota</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Projects -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Most Exported Projects</h3>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Platform</th>
+                  <th>Created</th>
+                  <th>Exports</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5 Productivity Tips for Remote Work</td>
+                  <td><span class="badge badge-primary">Reels</span></td>
+                  <td>2 days ago</td>
+                  <td><strong>3 exports</strong></td>
+                  <td>60s</td>
+                </tr>
+                <tr>
+                  <td>Top 3 Mistakes New Creators Make</td>
+                  <td><span class="badge badge-primary">TikTok</span></td>
+                  <td>5 days ago</td>
+                  <td><strong>2 exports</strong></td>
+                  <td>75s</td>
+                </tr>
+                <tr>
+                  <td>How I Stay Motivated Every Day</td>
+                  <td><span class="badge badge-primary">Reels</span></td>
+                  <td>1 week ago</td>
+                  <td><strong>2 exports</strong></td>
+                  <td>45s</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Team Activity -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Team Activity</h3>
+          </div>
+          <div class="card-body">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="flex items-center gap-4">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700); font-size: 1.125rem;">JD</div>
+                <div>
+                  <div class="font-medium">Jane Doe</div>
+                  <div class="text-sm text-gray-600">8 projects created</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--success-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--success-700); font-size: 1.125rem;">MS</div>
+                <div>
+                  <div class="font-medium">Michael Smith</div>
+                  <div class="text-sm text-gray-600">3 projects created</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--warning-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--warning-700); font-size: 1.125rem;">EJ</div>
+                <div>
+                  <div class="font-medium">Emily Johnson</div>
+                  <div class="text-sm text-gray-600">1 project created</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

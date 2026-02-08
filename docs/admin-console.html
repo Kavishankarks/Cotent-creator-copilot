@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar" style="background: var(--gray-900); border-right-color: var(--gray-800);">
+      <div class="sidebar-header" style="border-bottom-color: var(--gray-800);">
+        <div class="logo" style="color: white;">
+          🔧 Admin Console
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" style="color: var(--gray-300);">
+          <span class="nav-item-icon">📊</span>
+          Overview
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">🏢</span>
+          Organizations
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">👤</span>
+          Users
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">⚙️</span>
+          Jobs
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">📈</span>
+          Usage Analytics
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">🚨</span>
+          Abuse Flags
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <div class="nav-section-title" style="color: var(--gray-600);">Tools</div>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">🔍</span>
+          Search
+        </a>
+        <a href="#" class="nav-item" style="color: var(--gray-300);">
+          <span class="nav-item-icon">📋</span>
+          Audit Logs
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" style="border-top-color: var(--gray-800);">
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--danger-500); display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">A</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="color: white;">Admin User</div>
+            <div class="text-xs" style="color: var(--gray-400);">admin@creatorcop.io</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1 class="text-lg font-semibold">Admin Overview</h1>
+          <p class="text-sm text-gray-600">Internal admin dashboard</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="search" class="form-input" placeholder="Search org, user, job..." style="width: 300px;">
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Alert Banner -->
+        <div class="alert alert-danger mb-6">
+          <strong>Admin Mode:</strong> You have elevated privileges. Exercise caution when making changes.
+        </div>
+
+        <!-- System Stats -->
+        <div class="grid grid-cols-4 gap-6 mb-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Total Organizations</div>
+              <div class="text-3xl font-bold">1,247</div>
+              <div class="text-xs text-success-500 mt-2">↑ 23 this week</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Active Users</div>
+              <div class="text-3xl font-bold">3,891</div>
+              <div class="text-xs text-success-500 mt-2">↑ 142 this week</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">Jobs Today</div>
+              <div class="text-3xl font-bold">892</div>
+              <div class="text-xs text-gray-500 mt-2">87% success rate</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="text-sm text-gray-600 mb-1">MRR</div>
+              <div class="text-3xl font-bold">$42.3K</div>
+              <div class="text-xs text-success-500 mt-2">↑ 18% vs last month</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Search -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Quick Lookup</h3>
+          </div>
+          <div class="card-body">
+            <div class="grid grid-cols-3 gap-4">
+              <div class="form-group">
+                <label class="form-label">Organization ID</label>
+                <div class="flex gap-2">
+                  <input type="text" class="form-input" placeholder="org_...">
+                  <button class="btn btn-primary">Search</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">User Email</label>
+                <div class="flex gap-2">
+                  <input type="email" class="form-input" placeholder="user@example.com">
+                  <button class="btn btn-primary">Search</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Job ID</label>
+                <div class="flex gap-2">
+                  <input type="text" class="form-input" placeholder="job_...">
+                  <button class="btn btn-primary">Search</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Jobs -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <div class="flex items-center justify-between">
+              <h3 class="card-title">Recent Jobs</h3>
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-outline">All</button>
+                <button class="btn btn-sm btn-outline">Failed</button>
+                <button class="btn btn-sm btn-outline">Slow</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Job ID</th>
+                  <th>Organization</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Duration</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="text-xs">job_a1b2c3d4</code></td>
+                  <td>
+                    <div class="text-sm">Acme Studios</div>
+                    <div class="text-xs text-gray-500">org_xyz123</div>
+                  </td>
+                  <td><span class="badge badge-primary">Content Gen</span></td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                  <td>28.4s</td>
+                  <td>2 min ago</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">View</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><code class="text-xs">job_e5f6g7h8</code></td>
+                  <td>
+                    <div class="text-sm">Creative Co.</div>
+                    <div class="text-xs text-gray-500">org_abc456</div>
+                  </td>
+                  <td><span class="badge badge-primary">TTS</span></td>
+                  <td><span class="badge badge-warning">In Progress</span></td>
+                  <td>12.1s</td>
+                  <td>5 min ago</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">View</button>
+                    <button class="btn btn-sm btn-danger ml-2">Cancel</button>
+                  </td>
+                </tr>
+
+                <tr style="background: var(--danger-50);">
+                  <td><code class="text-xs">job_i9j0k1l2</code></td>
+                  <td>
+                    <div class="text-sm">Digital Agency</div>
+                    <div class="text-xs text-gray-500">org_def789</div>
+                  </td>
+                  <td><span class="badge badge-primary">Whisper</span></td>
+                  <td><span class="badge badge-danger">Failed</span></td>
+                  <td>4.7s</td>
+                  <td>8 min ago</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">Debug</button>
+                    <button class="btn btn-sm btn-primary ml-2">Retry</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><code class="text-xs">job_m3n4o5p6</code></td>
+                  <td>
+                    <div class="text-sm">Media House</div>
+                    <div class="text-xs text-gray-500">org_ghi012</div>
+                  </td>
+                  <td><span class="badge badge-primary">Captions</span></td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                  <td>1.2s</td>
+                  <td>12 min ago</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline">View</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Usage Anomalies -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Usage Anomalies & Abuse Flags</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Organization</th>
+                    <th>Flag Type</th>
+                    <th>Details</th>
+                    <th>Detected</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background: var(--warning-50);">
+                    <td>
+                      <div class="text-sm font-medium">Suspicious Corp</div>
+                      <div class="text-xs text-gray-500">org_sus999</div>
+                    </td>
+                    <td><span class="badge badge-warning">High Usage</span></td>
+                    <td class="text-sm">342 jobs in last hour (10x normal)</td>
+                    <td>15 min ago</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline">Investigate</button>
+                      <button class="btn btn-sm btn-danger ml-2">Rate Limit</button>
+                    </td>
+                  </tr>
+
+                  <tr style="background: var(--danger-50);">
+                    <td>
+                      <div class="text-sm font-medium">Spam Inc</div>
+                      <div class="text-xs text-gray-500">org_spam123</div>
+                    </td>
+                    <td><span class="badge badge-danger">Prompt Injection</span></td>
+                    <td class="text-sm">Detected malicious prompt patterns</td>
+                    <td>1 hour ago</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline">Review</button>
+                      <button class="btn btn-sm btn-danger ml-2">Suspend</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="grid grid-cols-2 gap-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">System Health</h3>
+            </div>
+            <div class="card-body">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">API Response Time</span>
+                    <span class="text-sm font-medium text-success-500">142ms avg</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill low" style="width: 14%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">Job Queue Length</span>
+                    <span class="text-sm font-medium text-success-500">12 pending</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill low" style="width: 8%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">Error Rate (24h)</span>
+                    <span class="text-sm font-medium text-warning-500">2.3%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill low" style="width: 23%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm">Storage Usage</span>
+                    <span class="text-sm font-medium">42 GB / 1 TB</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill low" style="width: 4%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Support Tickets</h3>
+            </div>
+            <div class="card-body">
+              <div class="flex flex-col gap-3">
+                <div class="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium text-sm">Job stuck in progress</div>
+                    <div class="text-xs text-gray-500">org_xyz123 • 10 min ago</div>
+                  </div>
+                  <span class="badge badge-warning">Open</span>
+                </div>
+
+                <div class="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium text-sm">Billing question</div>
+                    <div class="text-xs text-gray-500">org_abc456 • 1 hour ago</div>
+                  </div>
+                  <span class="badge badge-primary">In Progress</span>
+                </div>
+
+                <div class="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium text-sm">Feature request: API access</div>
+                    <div class="text-xs text-gray-500">org_def789 • 3 hours ago</div>
+                  </div>
+                  <span class="badge badge-success">Resolved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

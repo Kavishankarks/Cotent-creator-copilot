@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar (same as dashboard) -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎬 Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item active">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div class="flex items-center gap-4">
+          <h1 class="text-lg font-semibold">Projects</h1>
+          <span class="badge badge-gray">12 total</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="btn btn-primary">✨ New Project</button>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Filters and Search -->
+        <div class="card mb-6">
+          <div class="card-body">
+            <div class="flex items-center gap-4">
+              <div style="flex: 1;">
+                <input type="search" class="form-input" placeholder="Search projects...">
+              </div>
+              <select class="form-select" style="width: 180px;">
+                <option value="">All Platforms</option>
+                <option value="reels">Instagram Reels</option>
+                <option value="shorts">YouTube Shorts</option>
+                <option value="youtube">YouTube</option>
+                <option value="tiktok">TikTok</option>
+                <option value="linkedin">LinkedIn</option>
+              </select>
+              <select class="form-select" style="width: 160px;">
+                <option value="">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="in-progress">In Progress</option>
+                <option value="failed">Failed</option>
+                <option value="draft">Draft</option>
+              </select>
+              <select class="form-select" style="width: 180px;">
+                <option value="recent">Recently Updated</option>
+                <option value="oldest">Oldest First</option>
+                <option value="name">Name A-Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Project Card 1 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative;">
+              <span class="badge badge-success" style="position: absolute; top: 12px; right: 12px;">Completed</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">Instagram Reels</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">5 Productivity Tips for Remote Work</h4>
+              <p class="text-sm text-gray-600 mb-3">60 seconds • Created today</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>✓ Script</span>
+                  <span>✓ Audio</span>
+                  <span>✓ Captions</span>
+                </div>
+                <a href="project-workspace.html" class="btn btn-sm btn-primary">Open</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 2 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); position: relative;">
+              <span class="badge badge-warning" style="position: absolute; top: 12px; right: 12px;">In Progress</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">YouTube Shorts</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">Morning Routine That Changed My Life</h4>
+              <p class="text-sm text-gray-600 mb-3">90 seconds • Updated yesterday</p>
+              <div class="flex items-center justify-between">
+                <div class="progress-bar" style="flex: 1; margin-right: 1rem;">
+                  <div class="progress-fill" style="width: 65%;"></div>
+                </div>
+                <a href="project-workspace.html" class="btn btn-sm btn-primary">Open</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 3 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); position: relative;">
+              <span class="badge badge-success" style="position: absolute; top: 12px; right: 12px;">Completed</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">TikTok</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">Top 3 Mistakes New Creators Make</h4>
+              <p class="text-sm text-gray-600 mb-3">75 seconds • 2 days ago</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>✓ Script</span>
+                  <span>✓ Audio</span>
+                  <span>✓ Captions</span>
+                </div>
+                <a href="project-workspace.html" class="btn btn-sm btn-primary">Open</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 4 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); position: relative;">
+              <span class="badge badge-success" style="position: absolute; top: 12px; right: 12px;">Completed</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">Instagram Reels</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">How I Stay Motivated Every Day</h4>
+              <p class="text-sm text-gray-600 mb-3">45 seconds • 3 days ago</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>✓ Script</span>
+                  <span>✓ Audio</span>
+                  <span>✓ Captions</span>
+                </div>
+                <a href="project-workspace.html" class="btn btn-sm btn-primary">Open</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 5 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); position: relative;">
+              <span class="badge badge-gray" style="position: absolute; top: 12px; right: 12px;">Draft</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">LinkedIn</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">Leadership Lessons I Learned</h4>
+              <p class="text-sm text-gray-600 mb-3">Not generated • 5 days ago</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span>Draft only</span>
+                </div>
+                <a href="project-workspace.html" class="btn btn-sm btn-outline">Edit</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Card 6 -->
+          <div class="card" style="cursor: pointer; transition: all 0.2s;">
+            <div style="height: 180px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); position: relative;">
+              <span class="badge badge-danger" style="position: absolute; top: 12px; right: 12px;">Failed</span>
+              <div style="position: absolute; bottom: 12px; left: 12px; right: 12px;">
+                <span class="badge badge-primary">YouTube</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h4 class="mb-2">Complete Guide to Content Creation</h4>
+              <p class="text-sm text-gray-600 mb-3">600 seconds • 1 week ago</p>
+              <div class="flex items-center justify-between">
+                <div class="text-xs text-danger-500">
+                  Generation failed
+                </div>
+                <button class="btn btn-sm btn-outline">Retry</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between mt-8">
+          <p class="text-sm text-gray-600">Showing 1-6 of 12 projects</p>
+          <div class="flex gap-2">
+            <button class="btn btn-outline btn-sm" disabled>← Previous</button>
+            <button class="btn btn-primary btn-sm">Next →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing & Plans - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎬 Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item active">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1 class="text-lg font-semibold">Billing & Plans</h1>
+          <p class="text-sm text-gray-600">Manage your subscription and usage</p>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Tabs -->
+        <div class="tabs mb-6">
+          <ul class="tabs-list">
+            <li><a href="#" class="tab active">Current Plan</a></li>
+            <li><a href="#" class="tab">Usage & Quotas</a></li>
+            <li><a href="#" class="tab">Payment Method</a></li>
+            <li><a href="#" class="tab">Billing History</a></li>
+          </ul>
+        </div>
+
+        <!-- Current Plan -->
+        <div class="card mb-6">
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="mb-1">Free Trial</h3>
+                <p class="text-sm text-gray-600">3 projects • 3 team members • Basic features</p>
+              </div>
+              <div class="text-right">
+                <div class="text-2xl font-bold">$0/mo</div>
+                <div class="text-sm text-danger-500 font-medium">Trial ends in 12 days</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage Dashboard -->
+        <div class="card mb-8">
+          <div class="card-header">
+            <h3 class="card-title">Current Usage</h3>
+          </div>
+          <div class="card-body">
+            <div class="grid grid-cols-2 gap-6">
+              <!-- Projects -->
+              <div>
+                <div class="usage-meter">
+                  <div class="usage-meter-header">
+                    <span class="usage-meter-label">Projects Generated</span>
+                    <span class="usage-meter-value">2 / 3</span>
+                  </div>
+                  <div class="usage-meter-bar">
+                    <div class="usage-meter-fill medium" style="width: 66%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Team Seats -->
+              <div>
+                <div class="usage-meter">
+                  <div class="usage-meter-header">
+                    <span class="usage-meter-label">Team Seats</span>
+                    <span class="usage-meter-value">3 / 3</span>
+                  </div>
+                  <div class="usage-meter-bar">
+                    <div class="usage-meter-fill high" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TTS Characters -->
+              <div>
+                <div class="usage-meter">
+                  <div class="usage-meter-header">
+                    <span class="usage-meter-label">TTS Characters</span>
+                    <span class="usage-meter-value">8.2K / 10K</span>
+                  </div>
+                  <div class="usage-meter-bar">
+                    <div class="usage-meter-fill high" style="width: 82%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Whisper Minutes -->
+              <div>
+                <div class="usage-meter">
+                  <div class="usage-meter-header">
+                    <span class="usage-meter-label">Whisper Minutes</span>
+                    <span class="usage-meter-value">2.8 / 5.0</span>
+                  </div>
+                  <div class="usage-meter-bar">
+                    <div class="usage-meter-fill medium" style="width: 56%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Plans -->
+        <h2 class="mb-2">Choose Your Plan</h2>
+        <p class="text-gray-600 mb-6">Upgrade to unlock unlimited projects and advanced features</p>
+
+        <div class="pricing-grid">
+          <!-- Free Trial -->
+          <div class="pricing-card">
+            <div class="pricing-name">Free Trial</div>
+            <div class="pricing-price">$0</div>
+            <div class="pricing-period">14 days trial</div>
+            <ul class="pricing-features">
+              <li>3 video projects</li>
+              <li>3 team members</li>
+              <li>10K TTS characters</li>
+              <li>5 Whisper minutes</li>
+              <li>Basic templates</li>
+              <li>Community support</li>
+            </ul>
+            <button class="btn btn-outline" style="width: 100%;" disabled>Current Plan</button>
+          </div>
+
+          <!-- Creator Plan -->
+          <div class="pricing-card featured">
+            <div class="pricing-badge">Most Popular</div>
+            <div class="pricing-name">Creator</div>
+            <div class="pricing-price">$29</div>
+            <div class="pricing-period">per month</div>
+            <ul class="pricing-features">
+              <li>Unlimited projects</li>
+              <li>5 team members</li>
+              <li>100K TTS characters/mo</li>
+              <li>60 Whisper minutes/mo</li>
+              <li>All templates</li>
+              <li>Priority support</li>
+              <li>Custom style cards</li>
+              <li>Advanced analytics</li>
+            </ul>
+            <button class="btn btn-primary" style="width: 100%;">Upgrade to Creator</button>
+          </div>
+
+          <!-- Team Plan -->
+          <div class="pricing-card">
+            <div class="pricing-name">Team</div>
+            <div class="pricing-price">$79</div>
+            <div class="pricing-period">per month</div>
+            <ul class="pricing-features">
+              <li>Unlimited projects</li>
+              <li>15 team members</li>
+              <li>500K TTS characters/mo</li>
+              <li>300 Whisper minutes/mo</li>
+              <li>Everything in Creator</li>
+              <li>Team collaboration tools</li>
+              <li>Advanced permissions</li>
+              <li>Audit logs</li>
+            </ul>
+            <button class="btn btn-outline" style="width: 100%;">Upgrade to Team</button>
+          </div>
+
+          <!-- Enterprise Plan -->
+          <div class="pricing-card">
+            <div class="pricing-name">Enterprise</div>
+            <div class="pricing-price">Custom</div>
+            <div class="pricing-period">contact sales</div>
+            <ul class="pricing-features">
+              <li>Unlimited everything</li>
+              <li>Unlimited team members</li>
+              <li>Custom quotas</li>
+              <li>Everything in Team</li>
+              <li>SSO & SAML</li>
+              <li>Dedicated support</li>
+              <li>SLA guarantee</li>
+              <li>Custom integrations</li>
+            </ul>
+            <button class="btn btn-outline" style="width: 100%;">Contact Sales</button>
+          </div>
+        </div>
+
+        <!-- Payment Method (Hidden Tab) -->
+        <div id="payment-method" style="display: none;">
+          <div class="card mt-8">
+            <div class="card-header">
+              <div class="flex items-center justify-between">
+                <h3 class="card-title">Payment Method</h3>
+                <button class="btn btn-outline btn-sm">+ Add Card</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="empty-state">
+                <div class="empty-state-icon">💳</div>
+                <h3 class="empty-state-title">No payment method</h3>
+                <p class="empty-state-description">Add a payment method to upgrade your plan</p>
+                <button class="btn btn-primary">Add Payment Method</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing History (Hidden Tab) -->
+        <div id="billing-history" style="display: none;">
+          <div class="card mt-8">
+            <div class="card-header">
+              <h3 class="card-title">Billing History</h3>
+            </div>
+            <div class="card-body">
+              <div class="empty-state">
+                <div class="empty-state-icon">📄</div>
+                <h3 class="empty-state-title">No invoices yet</h3>
+                <p class="empty-state-description">Your billing history will appear here once you upgrade</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card mt-8">
+          <div class="card-header">
+            <h3 class="card-title">Frequently Asked Questions</h3>
+          </div>
+          <div class="card-body">
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">What happens when my trial ends?</h4>
+              <p class="text-sm text-gray-600">Your trial will expire after 14 days. You'll need to upgrade to a paid plan to continue creating projects.</p>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Can I change plans later?</h4>
+              <p class="text-sm text-gray-600">Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">What happens if I exceed my quotas?</h4>
+              <p class="text-sm text-gray-600">You'll be notified when you're approaching your limits. You can upgrade your plan or purchase add-ons.</p>
+            </div>
+
+            <div>
+              <h4 class="font-medium mb-2">Do you offer refunds?</h4>
+              <p class="text-sm text-gray-600">We offer a 30-day money-back guarantee on all paid plans. No questions asked.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

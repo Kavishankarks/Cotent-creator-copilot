@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project: 5 Productivity Tips - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    body.workspace-page {
+      font-family: 'Space Grotesk', var(--font-sans);
+      background: radial-gradient(circle at top left, #fef9f2 0%, #f8fafc 45%, #eef2ff 100%);
+      color: #0f172a;
+    }
+
+    .workspace-page .main-content {
+      background: transparent;
+    }
+
+    .workspace-page .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .workspace-topbar {
+      gap: 1.5rem;
+      padding: 0 2rem;
+    }
+
+    .project-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .project-title h1 {
+      font-size: 1.25rem;
+      margin: 0.2rem 0 0.4rem 0;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .status-select {
+      border-radius: 999px;
+      border: 1px solid #cbd5f5;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      background: #eef2ff;
+      color: #3730a3;
+      font-weight: 600;
+    }
+
+    .command-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      min-width: 260px;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .command-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.85rem;
+      color: #0f172a;
+    }
+
+    .command-kbd {
+      font-size: 0.7rem;
+      background: #e2e8f0;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.35rem;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    .workspace-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem 2.5rem;
+    }
+
+    .workspace-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .workspace-rail {
+      position: sticky;
+      top: 96px;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-hero {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 1.5rem;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 1.5rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .stat-chip {
+      background: #f1f5f9;
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .stat-chip span {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-chip strong {
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .hero-preview {
+      background: radial-gradient(circle at top, #111827 0%, #0f172a 100%);
+      border-radius: 1rem;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+    }
+
+    .hero-preview .preview-frame {
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.2);
+      overflow: hidden;
+    }
+
+    .progress-bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e 0%, #14b8a6 100%);
+      width: 72%;
+    }
+
+    .studio-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      background: white;
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem 1rem;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #f8fafc;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid #e2e8f0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .toggle {
+      position: relative;
+      width: 42px;
+      height: 24px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .toggle input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle span {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 999px;
+      transition: transform 0.2s ease;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.2);
+    }
+
+    .toggle input:checked + span {
+      transform: translateX(18px);
+    }
+
+    .toggle input:checked ~ .toggle-bg {
+      background: #22c55e;
+    }
+
+    .tabs {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 0.5rem 0.75rem;
+      overflow-x: auto;
+    }
+
+    .tabs-list {
+      gap: 0.75rem;
+    }
+
+    .tab {
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #475569;
+      background: transparent;
+    }
+
+    .tab.active {
+      background: #1e293b;
+      color: #f8fafc;
+    }
+
+    .workspace-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card.soft {
+      background: #f8fafc;
+      border: 1px dashed #cbd5f5;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .preview-card {
+      border-radius: 1rem;
+      padding: 1rem;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .preview-card .preview-screen {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.75rem;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+    }
+
+    .script-editor {
+      min-height: 320px;
+      font-family: 'JetBrains Mono', var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .script-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .script-stats {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 0.75rem;
+    }
+
+    .timeline-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .timeline-bar input[type=range] {
+      width: 100%;
+    }
+
+    .mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .checklist label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #1e293b;
+    }
+
+    .asset-drop {
+      border: 1px dashed #94a3b8;
+      border-radius: 0.9rem;
+      padding: 1rem;
+      text-align: center;
+      background: #f8fafc;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    .caption-preview {
+      position: relative;
+      background: #0f172a;
+      border-radius: 1rem;
+      padding: 2rem;
+      color: white;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .caption-preview.bottom .caption-line {
+      position: absolute;
+      bottom: 40px;
+      left: 16px;
+      right: 16px;
+    }
+
+    .caption-preview.center .caption-line {
+      position: relative;
+    }
+
+    .caption-preview.karaoke .caption-line {
+      position: relative;
+      font-weight: 700;
+    }
+
+    .caption-line {
+      background: rgba(15, 23, 42, 0.85);
+      padding: 0.6rem 1rem;
+      border-radius: 0.6rem;
+      display: inline-block;
+    }
+
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .scene-card {
+      border-radius: 1rem;
+      border: 1px solid #e2e8f0;
+      background: white;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .scene-card .scene-thumb {
+      background: #f1f5f9;
+      border-radius: 0.75rem;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .workspace-rail .card {
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .presence-stack {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .presence-stack .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      border: 2px solid white;
+    }
+
+    .comment-box {
+      border-radius: 0.75rem;
+      border: 1px solid #e2e8f0;
+      padding: 0.75rem;
+      background: #f8fafc;
+      font-size: 0.8rem;
+      color: #334155;
+    }
+
+    .rail-micro {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .badge-lite {
+      background: #fef9c3;
+      color: #92400e;
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1100px) {
+      .workspace-content {
+        grid-template-columns: 1fr;
+      }
+
+      .workspace-rail {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .workspace-rail .card {
+        flex: 1 1 280px;
+      }
+
+      .project-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .workspace-topbar {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 1rem;
+        gap: 1rem;
+      }
+
+      .command-bar {
+        width: 100%;
+        max-width: none;
+      }
+
+      .split-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="workspace-page">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item active">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar workspace-topbar">
+        <div class="flex items-center gap-4">
+          <a href="projects.html" class="btn btn-icon btn-outline">←</a>
+          <div class="project-title">
+            <div class="project-label">Project</div>
+            <h1>5 Productivity Tips for Remote Work</h1>
+            <div class="project-meta">
+              <span class="badge badge-primary">Instagram Reels</span>
+              <span class="badge badge-success">Completed</span>
+              <span class="text-xs text-gray-500">60 seconds</span>
+              <select class="status-select" aria-label="Change project status">
+                <option>Editing</option>
+                <option selected>Review</option>
+                <option>Approved</option>
+                <option>Scheduled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="command-bar" role="search">
+          <span>⌘</span>
+          <input type="text" placeholder="Jump to: script, scenes, exports" aria-label="Command bar">
+          <span class="command-kbd">Ctrl K</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="btn btn-outline">💬 Comment</button>
+          <button class="btn btn-outline">🎬 Preview</button>
+          <button class="btn btn-success">📦 Export Pack</button>
+          <button class="btn btn-icon btn-outline">⋮</button>
+        </div>
+      </header>
+
+      <div class="content-area workspace-content">
+        <section class="workspace-main">
+          <div class="project-hero">
+            <div>
+              <div class="pill">Last edited 20 minutes ago</div>
+              <h2 class="mt-4">Production is 72% complete</h2>
+              <p class="text-sm text-gray-600">You are one review away from scheduling. Finish approvals, finalize captions, and publish to all platforms in one flow.</p>
+              <div class="hero-stats">
+                <div class="stat-chip">
+                  <span>Audience</span>
+                  <strong>Remote teams + freelancers</strong>
+                </div>
+                <div class="stat-chip">
+                  <span>Goal</span>
+                  <strong>Saveable, shareable tips</strong>
+                </div>
+                <div class="stat-chip">
+                  <span>CTA</span>
+                  <strong>Comment favorite tip</strong>
+                </div>
+              </div>
+              <div class="hero-progress">
+                <div class="progress-bar"><span></span></div>
+                <div class="text-xs text-gray-500">6 of 8 steps done</div>
+              </div>
+            </div>
+            <div class="hero-preview">
+              <div class="preview-frame">Vertical preview</div>
+              <div>
+                <div class="text-xs">Auto captions: On • Voice: Alloy • 9:16</div>
+                <div class="text-xs">Render quality: 1080x1920</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="studio-toolbar">
+            <div class="toolbar-group">
+              <span class="pill">Workspace: Studio</span>
+              <label class="pill">Aspect
+                <select class="form-select" style="margin-left: 0.4rem; padding: 0.2rem 1.5rem 0.2rem 0.4rem; font-size: 0.75rem;">
+                  <option>9:16 (Reels)</option>
+                  <option>1:1 (Square)</option>
+                  <option>16:9 (YouTube)</option>
+                </select>
+              </label>
+              <label class="pill">Language
+                <select class="form-select" style="margin-left: 0.4rem; padding: 0.2rem 1.5rem 0.2rem 0.4rem; font-size: 0.75rem;">
+                  <option>English</option>
+                  <option>Spanish</option>
+                  <option>Portuguese</option>
+                </select>
+              </label>
+            </div>
+            <div class="toolbar-group">
+              <span class="text-xs text-gray-500">AI Assist</span>
+              <button class="btn btn-sm btn-outline">Generate hooks</button>
+              <button class="btn btn-sm btn-outline">Rewrite CTA</button>
+              <button class="btn btn-sm btn-outline">Find B-roll</button>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <ul class="tabs-list">
+              <li><a href="#brief" class="tab active">Brief</a></li>
+              <li><a href="#style" class="tab">Style Card</a></li>
+              <li><a href="#script" class="tab">Script</a></li>
+              <li><a href="#voiceover" class="tab">Voiceover</a></li>
+              <li><a href="#transcript" class="tab">Transcript</a></li>
+              <li><a href="#captions" class="tab">Captions</a></li>
+              <li><a href="#scenes" class="tab">Scenes & Prompts</a></li>
+              <li><a href="#exports" class="tab">Exports</a></li>
+            </ul>
+          </div>
+
+          <div id="brief-tab" class="tab-content">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Project Brief</h3>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">Content Idea</label>
+                    <textarea class="form-textarea" rows="4" readonly>Share 5 actionable productivity tips specifically for remote workers. Focus on practical, easy-to-implement strategies that help with focus, time management, and work-life balance.</textarea>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                      <label class="form-label">Platform</label>
+                      <input type="text" class="form-input" value="Instagram Reels" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Duration</label>
+                      <input type="text" class="form-input" value="60 seconds" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Language</label>
+                      <input type="text" class="form-input" value="English" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Target Keywords</label>
+                      <input type="text" class="form-input" value="productivity, remote work, tips, work from home" readonly>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Audience Notes</label>
+                    <input type="text" class="form-input" value="Remote employees, freelancers, first-time WFH" readonly>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Additional Constraints</label>
+                    <textarea class="form-textarea" rows="2" readonly>Keep it upbeat and energetic. Avoid corporate jargon. Use relatable examples.</textarea>
+                  </div>
+
+                  <div class="tag-group">
+                    <span class="tag">Keep under 60s</span>
+                    <span class="tag">Friendly tone</span>
+                    <span class="tag">Show quick wins</span>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox" checked disabled>
+                      <span class="text-sm ml-2">Generate voiceover</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox" checked disabled>
+                      <span class="text-sm ml-2">Generate captions</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox" checked disabled>
+                      <span class="text-sm ml-2">Generate scene prompts</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="flex justify-end gap-2">
+                    <button class="btn btn-outline">Edit Brief</button>
+                    <button class="btn btn-primary">Regenerate All</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="split-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Success Metrics</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="mini-list">
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Save rate target</div>
+                          <div class="text-xs text-gray-500">Based on last 5 Reels</div>
+                        </div>
+                        <div class="badge badge-success">8%+</div>
+                      </div>
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Watch time</div>
+                          <div class="text-xs text-gray-500">Average completion</div>
+                        </div>
+                        <div class="badge badge-primary">78%</div>
+                      </div>
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Comments</div>
+                          <div class="text-xs text-gray-500">CTA response</div>
+                        </div>
+                        <div class="badge badge-gray">50+</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Generation Timeline</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="job-timeline">
+                      <div class="job-step completed">
+                        <div class="job-step-icon">✓</div>
+                        <div>
+                          <div class="font-medium">Content Plan Generated</div>
+                          <div class="text-sm text-gray-500">Completed in 8.2s • Today at 2:30 PM</div>
+                        </div>
+                      </div>
+                      <div class="job-step completed">
+                        <div class="job-step-icon">✓</div>
+                        <div>
+                          <div class="font-medium">Voiceover Generated</div>
+                          <div class="text-sm text-gray-500">Completed in 12.5s • Today at 2:30 PM</div>
+                          <div class="text-sm text-gray-600 mt-1">OpenAI TTS • Voice: Alloy • 847 characters</div>
+                        </div>
+                      </div>
+                      <div class="job-step completed">
+                        <div class="job-step-icon">✓</div>
+                        <div>
+                          <div class="font-medium">Transcription Generated</div>
+                          <div class="text-sm text-gray-500">Completed in 6.1s • Today at 2:30 PM</div>
+                          <div class="text-sm text-gray-600 mt-1">Whisper API • 58.5s audio processed</div>
+                        </div>
+                      </div>
+                      <div class="job-step completed">
+                        <div class="job-step-icon">✓</div>
+                        <div>
+                          <div class="font-medium">Captions Generated</div>
+                          <div class="text-sm text-gray-500">Completed in 1.2s • Today at 2:30 PM</div>
+                          <div class="text-sm text-gray-600 mt-1">SRT & VTT formats • Highlight words detected</div>
+                        </div>
+                      </div>
+                      <div class="job-step completed">
+                        <div class="job-step-icon">✓</div>
+                        <div>
+                          <div class="font-medium">Export Pack Ready</div>
+                          <div class="text-sm text-gray-500">Packaged 7 files • 4.2 MB total</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="style-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="split-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Style Card</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-label">Brand Voice</label>
+                      <textarea class="form-textarea" rows="4">Bright, practical, and empathetic. Use energetic short sentences. Sound like a trusted creator sharing what actually works.</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Color Palette</label>
+                      <div class="flex gap-2" style="flex-wrap: wrap;">
+                        <div class="pill">#0f172a</div>
+                        <div class="pill">#22c55e</div>
+                        <div class="pill">#f97316</div>
+                        <div class="pill">#f8fafc</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">On-screen Text Rules</label>
+                      <textarea class="form-textarea" rows="3">Use 5-7 words per slide. Lead with verbs. Highlight one keyword in accent orange.</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Music Mood</label>
+                      <select class="form-select">
+                        <option>Upbeat lo-fi</option>
+                        <option selected>Bright electronic</option>
+                        <option>Acoustic chill</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="flex justify-end gap-2">
+                      <button class="btn btn-outline">Update Brand Kit</button>
+                      <button class="btn btn-primary">Apply to Project</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card soft">
+                  <div class="card-header">
+                    <h3 class="card-title">Preview Slide</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="preview-card">
+                      <div class="preview-screen">Slide mock</div>
+                      <div>
+                        <div class="text-sm">Tip 1: Create a dedicated workspace</div>
+                        <div class="text-xs text-gray-500">Accent: orange keyword highlight</div>
+                      </div>
+                    </div>
+                    <div class="mt-4">
+                      <label class="form-label">Motion</label>
+                      <select class="form-select">
+                        <option>Pop + bounce</option>
+                        <option selected>Swipe + kinetic text</option>
+                        <option>Fade + scale</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Reusable Hooks</h3>
+                </div>
+                <div class="card-body">
+                  <div class="mini-list">
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">“If your home office feels chaotic, try this.”</div>
+                        <div class="text-xs text-gray-500">Confidence: 87%</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">Use</button>
+                    </div>
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">“Stop losing 2 hours a day to these habits.”</div>
+                        <div class="text-xs text-gray-500">Confidence: 82%</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">Use</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="script-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="split-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="flex items-center justify-between">
+                      <h3 class="card-title">Script Editor</h3>
+                      <div class="pill">Version 3 • Autosaved</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="script-toolbar">
+                      <button class="btn btn-sm btn-outline">+ Insert Hook</button>
+                      <button class="btn btn-sm btn-outline">Emphasize Keyword</button>
+                      <button class="btn btn-sm btn-outline">Shorten to 45s</button>
+                      <button class="btn btn-sm btn-outline">Add CTA</button>
+                    </div>
+                    <textarea id="script-editor" class="form-textarea script-editor">[HOOK - 0:00-0:03]
+Struggling to stay productive while working from home? Let's fix that.
+
+[INTRO - 0:03-0:08]
+I'm sharing 5 game-changing productivity tips that transformed my remote work life.
+
+[TIP 1 - 0:08-0:20]
+Number one: Create a dedicated workspace. Your brain needs a clear boundary between work and rest. Even if it's just a corner of your room, make it YOUR productive zone.
+
+[TIP 2 - 0:20-0:32]
+Tip two: Use the Pomodoro Technique. Work for 25 minutes, break for 5. This keeps your mind fresh and prevents burnout.
+
+[TIP 3 - 0:32-0:44]
+Three: Block social media during work hours. Use app blockers if you need to. Those "quick checks" add up to hours of lost focus.
+
+[TIP 4 - 0:44-0:52]
+Number four: Start your day with a clear plan. Write down your top 3 priorities before you touch anything else.
+
+[TIP 5 - 0:52-0:57]
+And five: Take real breaks. Step away from your screen. Move your body. Your productivity will thank you.
+
+[CTA - 0:57-0:60]
+Which tip will you try first? Let me know in the comments!</textarea>
+                    <div class="script-stats">
+                      <span id="script-word-count">0 words</span>
+                      <span id="script-duration">Estimated 0:00</span>
+                      <span>Readability: Grade 6</span>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="flex justify-end gap-2">
+                      <button class="btn btn-outline">Edit Script</button>
+                      <button class="btn btn-primary">Regenerate Script</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Performance Preview</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="preview-card">
+                      <div class="preview-screen">Teleprompter View</div>
+                      <div class="text-sm">Voice Energy: Medium</div>
+                    </div>
+                    <div class="timeline-bar">
+                      <span class="text-xs text-gray-500">Timeline</span>
+                      <input type="range" min="0" max="60" value="14" aria-label="Timeline preview">
+                    </div>
+                    <div class="form-group mt-4">
+                      <label class="form-label">Delivery Style</label>
+                      <select class="form-select">
+                        <option>Friendly educator</option>
+                        <option selected>Energetic creator</option>
+                        <option>Calm storyteller</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Emphasis Highlights</label>
+                      <div class="tag-group">
+                        <span class="tag">Dedicated workspace</span>
+                        <span class="tag">Pomodoro</span>
+                        <span class="tag">Block social</span>
+                      </div>
+                    </div>
+                    <div class="mini-list">
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Version 2</div>
+                          <div class="text-xs text-gray-500">Shorter hook • 58s</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline">Compare</button>
+                      </div>
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Version 1</div>
+                          <div class="text-xs text-gray-500">Original draft</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline">Compare</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="voiceover-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">AI Voiceover</h3>
+                </div>
+                <div class="card-body">
+                  <div style="background: #f8fafc; border-radius: 1rem; padding: 2rem; text-align: center; margin-bottom: 2rem;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎤</div>
+                    <audio controls style="width: 100%; max-width: 500px;">
+                      <source src="#" type="audio/mpeg">
+                    </audio>
+                    <p class="text-sm text-gray-600 mt-3">voiceover.mp3 • 58.5 seconds • 1.2 MB</p>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                      <label class="form-label">Voice</label>
+                      <select class="form-select">
+                        <option>Alloy (Neutral)</option>
+                        <option>Echo (Warm)</option>
+                        <option>Fable (Expressive)</option>
+                        <option>Onyx (Deep)</option>
+                        <option>Nova (Clear)</option>
+                        <option>Shimmer (Soft)</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Speed</label>
+                      <select class="form-select">
+                        <option>0.75x</option>
+                        <option selected>1.0x (Normal)</option>
+                        <option>1.25x</option>
+                        <option>1.5x</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Emotion</label>
+                      <select class="form-select">
+                        <option>Neutral</option>
+                        <option selected>Upbeat</option>
+                        <option>Confident</option>
+                        <option>Calm</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Background Music</label>
+                      <select class="form-select">
+                        <option>None</option>
+                        <option selected>Bright electronic</option>
+                        <option>Lo-fi chill</option>
+                        <option>Acoustic pop</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-info">
+                    <strong>Note:</strong> Regenerating voiceover will also regenerate transcription and captions downstream.
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="flex justify-end gap-2">
+                    <button class="btn btn-outline">⬇ Download MP3</button>
+                    <button class="btn btn-primary">🔄 Regenerate Voiceover</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="transcript-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <div class="flex items-center justify-between">
+                    <h3 class="card-title">Transcript Editor</h3>
+                    <div class="pill">Accuracy 98%</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">Search transcript</label>
+                    <input type="text" class="form-input" placeholder="Search for keyword or timestamp">
+                  </div>
+                  <div class="table-container">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Timestamp</th>
+                          <th>Speaker</th>
+                          <th>Text</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>00:00 - 00:03</td>
+                          <td>Host</td>
+                          <td>Struggling to stay productive while working from home?</td>
+                        </tr>
+                        <tr>
+                          <td>00:03 - 00:08</td>
+                          <td>Host</td>
+                          <td>I'm sharing 5 game-changing productivity tips.</td>
+                        </tr>
+                        <tr>
+                          <td>00:08 - 00:20</td>
+                          <td>Host</td>
+                          <td>Create a dedicated workspace to signal focus mode.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="flex justify-end gap-2">
+                    <button class="btn btn-outline">Export TXT</button>
+                    <button class="btn btn-primary">Save Transcript</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="captions-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <div class="flex items-center justify-between">
+                    <h3 class="card-title">Captions</h3>
+                    <div class="flex gap-2">
+                      <button class="btn btn-sm btn-outline">⬇ Download SRT</button>
+                      <button class="btn btn-sm btn-outline">⬇ Download VTT</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="caption-preview bottom" data-caption-preview>
+                    <div class="caption-line">Struggling to stay <span style="color: #fbbf24;">productive</span></div>
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label class="form-label">Caption Style</label>
+                    <div class="grid grid-cols-3 gap-3">
+                      <label class="card" style="cursor: pointer; padding: 1rem; text-align: center;">
+                        <input type="radio" name="caption-style" value="bottom" checked style="margin-bottom: 0.5rem;">
+                        <div class="text-sm font-medium">Bottom</div>
+                        <div class="text-xs text-gray-500">Standard</div>
+                      </label>
+                      <label class="card" style="cursor: pointer; padding: 1rem; text-align: center;">
+                        <input type="radio" name="caption-style" value="center" style="margin-bottom: 0.5rem;">
+                        <div class="text-sm font-medium">Center</div>
+                        <div class="text-xs text-gray-500">Centered</div>
+                      </label>
+                      <label class="card" style="cursor: pointer; padding: 1rem; text-align: center;">
+                        <input type="radio" name="caption-style" value="karaoke" style="margin-bottom: 0.5rem;">
+                        <div class="text-sm font-medium">Karaoke</div>
+                        <div class="text-xs text-gray-500">Word-by-word</div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                      <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox" checked>
+                        <span class="text-sm ml-2">Highlight keywords</span>
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox">
+                        <span class="text-sm ml-2">Background box</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Font + Size</label>
+                    <select class="form-select">
+                      <option>Bold Sans 48px</option>
+                      <option>Rounded 44px</option>
+                      <option>Condensed 52px</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Edit Captions</label>
+                    <textarea class="form-textarea" rows="10" style="font-family: 'JetBrains Mono', var(--font-mono); font-size: 0.875rem;">1
+00:00:00,000 --> 00:00:03,000
+Struggling to stay productive while working from home?
+
+2
+00:00:03,000 --> 00:00:08,000
+I'm sharing 5 game-changing productivity tips.
+
+3
+00:00:08,000 --> 00:00:20,000
+Number one: Create a dedicated workspace.</textarea>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="flex justify-end gap-2">
+                    <button class="btn btn-outline">Save Changes</button>
+                    <button class="btn btn-primary">Regenerate Captions</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="scenes-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <div class="flex items-center justify-between">
+                    <h3 class="card-title">Storyboard + Scene Prompts</h3>
+                    <button class="btn btn-sm btn-outline">Auto-generate scenes</button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="scene-grid">
+                    <div class="scene-card">
+                      <div class="scene-thumb">Scene 01</div>
+                      <div class="font-medium">Hook + Problem</div>
+                      <div class="text-xs text-gray-500">Camera: tight shot • Background: desk</div>
+                      <textarea class="form-textarea" rows="3">Close-up of creator saying "Struggling to stay productive?" overlay text: "Fix your WFH flow"</textarea>
+                      <button class="btn btn-sm btn-outline">Add B-roll</button>
+                    </div>
+                    <div class="scene-card">
+                      <div class="scene-thumb">Scene 02</div>
+                      <div class="font-medium">Tip 1</div>
+                      <div class="text-xs text-gray-500">Camera: mid shot • Background: office corner</div>
+                      <textarea class="form-textarea" rows="3">Show desk setup, quick pan of tools. On-screen text: "Dedicated workspace"</textarea>
+                      <button class="btn btn-sm btn-outline">Add B-roll</button>
+                    </div>
+                    <div class="scene-card">
+                      <div class="scene-thumb">Scene 03</div>
+                      <div class="font-medium">Tip 2</div>
+                      <div class="text-xs text-gray-500">Camera: side shot • Background: timer</div>
+                      <textarea class="form-textarea" rows="3">Insert timer animation, Pomodoro overlay, quick break clip</textarea>
+                      <button class="btn btn-sm btn-outline">Add B-roll</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="split-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Shot List</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="checklist">
+                      <label><input type="checkbox" class="form-checkbox" checked> Desk close-up</label>
+                      <label><input type="checkbox" class="form-checkbox"> Phone blocker app demo</label>
+                      <label><input type="checkbox" class="form-checkbox"> Break walk footage</label>
+                      <label><input type="checkbox" class="form-checkbox"> Planning notebook B-roll</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">AI Prompts</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="mini-list">
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">B-roll prompt</div>
+                          <div class="text-xs text-gray-500">"Minimal home office, morning light"</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline">Copy</button>
+                      </div>
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Thumbnail prompt</div>
+                          <div class="text-xs text-gray-500">"Creator holding timer, bold text"</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="exports-tab" class="tab-content" style="display: none;">
+            <div class="workspace-section">
+              <div class="card">
+                <div class="card-header">
+                  <div class="flex items-center justify-between">
+                    <h3 class="card-title">Export Pack</h3>
+                    <button class="btn btn-success">📦 Download All (ZIP)</button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="text-gray-600 mb-6">Download all generated assets for your project</p>
+
+                  <div class="form-group">
+                    <label class="form-label">Platform Preset</label>
+                    <select class="form-select">
+                      <option>Instagram Reels</option>
+                      <option>TikTok</option>
+                      <option>YouTube Shorts</option>
+                      <option>LinkedIn</option>
+                    </select>
+                  </div>
+
+                  <div class="mini-list">
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">script.txt</div>
+                        <div class="text-xs text-gray-500">Final script • 2.4 KB</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">⬇ Download</button>
+                    </div>
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">voiceover.mp3</div>
+                        <div class="text-xs text-gray-500">AI voiceover audio • 1.2 MB</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">⬇ Download</button>
+                    </div>
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">captions.srt</div>
+                        <div class="text-xs text-gray-500">SubRip captions • 1.8 KB</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">⬇ Download</button>
+                    </div>
+                    <div class="mini-item">
+                      <div>
+                        <div class="font-medium">scenes.json</div>
+                        <div class="text-xs text-gray-500">Scene breakdown with prompts • 4.5 KB</div>
+                      </div>
+                      <button class="btn btn-sm btn-outline">⬇ Download</button>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-info mt-6">
+                    <strong>Export History:</strong> Downloaded 2 times • Last export: Today at 3:45 PM
+                  </div>
+                </div>
+              </div>
+
+              <div class="split-grid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Publish Schedule</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-label">Publish date</label>
+                      <input type="date" class="form-input" value="2026-02-09">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Time zone</label>
+                      <select class="form-select">
+                        <option>Pacific Time (PT)</option>
+                        <option selected>Eastern Time (ET)</option>
+                        <option>Central Time (CT)</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Caption + Hashtags</label>
+                      <textarea class="form-textarea" rows="4">Remote work can be productive with the right system. Which tip will you try? #remotework #productivity #workfromhome</textarea>
+                    </div>
+                    <button class="btn btn-primary">Schedule Post</button>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Render Queue</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="mini-list">
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">Instagram Reels (9:16)</div>
+                          <div class="text-xs text-gray-500">Queued • ETA 2 min</div>
+                        </div>
+                        <span class="badge badge-warning">Rendering</span>
+                      </div>
+                      <div class="mini-item">
+                        <div>
+                          <div class="font-medium">YouTube Shorts (9:16)</div>
+                          <div class="text-xs text-gray-500">Ready</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline">Download</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="workspace-rail">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Production Checklist</h3>
+            </div>
+            <div class="card-body" data-checklist>
+              <div class="checklist">
+                <label><input type="checkbox" class="form-checkbox" checked> Brief approved</label>
+                <label><input type="checkbox" class="form-checkbox" checked> Script polished</label>
+                <label><input type="checkbox" class="form-checkbox"> Captions styled</label>
+                <label><input type="checkbox" class="form-checkbox"> B-roll assigned</label>
+                <label><input type="checkbox" class="form-checkbox"> Final review</label>
+              </div>
+              <div class="hero-progress" style="margin-top: 1rem;">
+                <div class="progress-bar"><span data-checklist-bar style="width: 40%;"></span></div>
+                <div class="text-xs text-gray-500" data-checklist-progress>2 of 5 complete</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Collaboration</h3>
+            </div>
+            <div class="card-body">
+              <div class="presence-stack">
+                <div class="avatar">JD</div>
+                <div class="avatar">AL</div>
+                <div class="avatar">MK</div>
+                <span class="rail-micro">3 online</span>
+              </div>
+              <div class="comment-box mt-4">
+                <strong>Alex</strong> • “Hook is strong. Suggest stronger CTA.”
+              </div>
+              <div class="comment-box mt-2">
+                <strong>Maya</strong> • “Can we add a timer overlay for tip 2?”
+              </div>
+              <div class="form-group mt-4">
+                <textarea class="form-textarea" rows="2" placeholder="Leave a comment..."></textarea>
+                <button class="btn btn-sm btn-primary">Send comment</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Asset Drop</h3>
+            </div>
+            <div class="card-body">
+              <div class="asset-drop">Drop files here or <strong>browse</strong> to upload</div>
+              <div class="mini-list mt-4">
+                <div class="mini-item">
+                  <div>
+                    <div class="font-medium">desk-setup.mov</div>
+                    <div class="text-xs text-gray-500">Uploaded 2h ago</div>
+                  </div>
+                  <span class="badge-lite">New</span>
+                </div>
+                <div class="mini-item">
+                  <div>
+                    <div class="font-medium">timer-overlay.png</div>
+                    <div class="text-xs text-gray-500">Brand kit asset</div>
+                  </div>
+                  <button class="btn btn-sm btn-outline">Replace</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Publish Plan</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Primary Platform</label>
+                <select class="form-select">
+                  <option selected>Instagram Reels</option>
+                  <option>TikTok</option>
+                  <option>YouTube Shorts</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">CTA Variant</label>
+                <select class="form-select">
+                  <option selected>Comment your favorite tip</option>
+                  <option>Save for later</option>
+                  <option>Share with a coworker</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hashtag set</label>
+                <input type="text" class="form-input" value="#remotework #productivity #creator">
+              </div>
+              <button class="btn btn-primary">Queue for approval</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const tabContents = Array.from(document.querySelectorAll('.tab-content'));
+
+    function activateTab(target) {
+      tabs.forEach(tab => tab.classList.remove('active'));
+      tabContents.forEach(content => {
+        content.style.display = 'none';
+      });
+
+      const activeTab = tabs.find(tab => tab.getAttribute('href') === target);
+      const activeContent = document.querySelector(`${target}-tab`);
+
+      if (activeTab) activeTab.classList.add('active');
+      if (activeContent) activeContent.style.display = 'block';
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', event => {
+        event.preventDefault();
+        activateTab(tab.getAttribute('href'));
+        history.replaceState(null, '', tab.getAttribute('href'));
+      });
+    });
+
+    if (window.location.hash) {
+      activateTab(window.location.hash);
+    }
+
+    const checklistRoot = document.querySelector('[data-checklist]');
+    if (checklistRoot) {
+      const boxes = checklistRoot.querySelectorAll('input[type="checkbox"]');
+      const progressText = checklistRoot.querySelector('[data-checklist-progress]');
+      const progressBar = checklistRoot.querySelector('[data-checklist-bar]');
+
+      const updateChecklist = () => {
+        const total = boxes.length;
+        const done = Array.from(boxes).filter(box => box.checked).length;
+        const percent = Math.round((done / total) * 100);
+        if (progressText) progressText.textContent = `${done} of ${total} complete`;
+        if (progressBar) progressBar.style.width = `${percent}%`;
+      };
+
+      boxes.forEach(box => box.addEventListener('change', updateChecklist));
+      updateChecklist();
+    }
+
+    const scriptEditor = document.getElementById('script-editor');
+    const wordCount = document.getElementById('script-word-count');
+    const durationCount = document.getElementById('script-duration');
+
+    const updateScriptStats = () => {
+      if (!scriptEditor) return;
+      const words = scriptEditor.value.trim().split(/\s+/).filter(Boolean).length;
+      const seconds = Math.max(5, Math.round(words / 2.4));
+      const minutes = Math.floor(seconds / 60);
+      const remainder = String(seconds % 60).padStart(2, '0');
+      if (wordCount) wordCount.textContent = `${words} words`;
+      if (durationCount) durationCount.textContent = `Estimated ${minutes}:${remainder}`;
+    };
+
+    if (scriptEditor) {
+      scriptEditor.addEventListener('input', updateScriptStats);
+      updateScriptStats();
+    }
+
+    const captionPreview = document.querySelector('[data-caption-preview]');
+    const captionRadios = document.querySelectorAll('input[name="caption-style"]');
+
+    captionRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (!captionPreview) return;
+        captionPreview.classList.remove('bottom', 'center', 'karaoke');
+        captionPreview.classList.add(radio.value);
+      });
+    });
+
+    document.addEventListener('keydown', event => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        const commandInput = document.querySelector('.command-bar input');
+        if (commandInput) commandInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding - Choose Your Goal - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width: 700px;">
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">Step 1 of 5</span>
+          <span class="text-sm text-gray-500">20% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 20%;"></div>
+        </div>
+      </div>
+
+      <div class="text-center mb-8">
+        <h2>What type of content do you create?</h2>
+        <p class="text-gray-600 mt-2">Choose the platform(s) you create content for</p>
+      </div>
+
+      <form>
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <!-- Platform Cards -->
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="reels" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+              <h4>Instagram Reels</h4>
+              <p class="text-sm text-gray-600">15-90 second vertical videos</p>
+            </div>
+          </label>
+
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="shorts" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">▶️</div>
+              <h4>YouTube Shorts</h4>
+              <p class="text-sm text-gray-600">Up to 60 second vertical videos</p>
+            </div>
+          </label>
+
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="youtube" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎥</div>
+              <h4>YouTube Videos</h4>
+              <p class="text-sm text-gray-600">Long-form content 5-30+ minutes</p>
+            </div>
+          </label>
+
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="tiktok" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎵</div>
+              <h4>TikTok</h4>
+              <p class="text-sm text-gray-600">15-180 second videos</p>
+            </div>
+          </label>
+
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="linkedin" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">💼</div>
+              <h4>LinkedIn</h4>
+              <p class="text-sm text-gray-600">Professional content & posts</p>
+            </div>
+          </label>
+
+          <label class="card" style="cursor: pointer; transition: all 0.15s;">
+            <input type="checkbox" name="platform" value="twitter" style="display: none;">
+            <div class="card-body text-center">
+              <div style="font-size: 2rem; margin-bottom: 0.5rem;">𝕏</div>
+              <h4>Twitter/X</h4>
+              <p class="text-sm text-gray-600">Short videos & threads</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="flex justify-between">
+          <button type="button" class="btn btn-outline">Skip for now</button>
+          <a href="onboarding-step2.html" class="btn btn-primary">Continue</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    .card:has(input:checked) {
+      border-color: var(--primary-500);
+      background: var(--primary-50);
+    }
+  </style>
+</body>
+</html>

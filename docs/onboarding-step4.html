@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding - Style Card - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width: 900px;">
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">Step 4 of 5</span>
+          <span class="text-sm text-gray-500">80% complete</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 80%;"></div>
+        </div>
+      </div>
+
+      <div class="text-center mb-8">
+        <h2>Your Content Style Card</h2>
+        <p class="text-gray-600 mt-2">We've analyzed your content. Review and adjust your style profile below.</p>
+      </div>
+
+      <!-- Loading State (shown during analysis) -->
+      <div id="analyzing" class="text-center py-12" style="display: none;">
+        <div class="spinner" style="margin: 0 auto 1rem;"></div>
+        <p class="font-medium">Analyzing your content style...</p>
+        <p class="text-sm text-gray-500 mt-2">This usually takes 10-15 seconds</p>
+      </div>
+
+      <!-- Style Card Results -->
+      <div id="style-card" class="card">
+        <div class="card-header">
+          <div class="flex items-center justify-between">
+            <h3 class="card-title">Your Unique Voice</h3>
+            <span class="badge badge-success">AI-Generated</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Tone Analysis -->
+            <div>
+              <label class="form-label">Speaking Tone</label>
+              <input type="text" class="form-input" value="Energetic and Educational">
+              <span class="form-hint">Your typical communication style</span>
+            </div>
+
+            <!-- Pacing -->
+            <div>
+              <label class="form-label">Content Pacing</label>
+              <select class="form-select">
+                <option>Fast-paced with quick cuts</option>
+                <option>Moderate with clear pauses</option>
+                <option>Slow and deliberate</option>
+              </select>
+            </div>
+
+            <!-- Hook Style -->
+            <div>
+              <label class="form-label">Hook Style</label>
+              <input type="text" class="form-input" value="Question-based openings">
+              <span class="form-hint">How you grab attention</span>
+            </div>
+
+            <!-- CTA Pattern -->
+            <div>
+              <label class="form-label">Call-to-Action Pattern</label>
+              <input type="text" class="form-input" value="Encouraging & friendly">
+            </div>
+
+            <!-- Vocabulary -->
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="form-label">Vocabulary Level</label>
+              <div class="flex items-center gap-4">
+                <input type="range" min="1" max="5" value="3" style="flex: 1;">
+                <span class="text-sm font-medium">Accessible</span>
+              </div>
+              <span class="form-hint">1 = Simple, 5 = Technical/Advanced</span>
+            </div>
+
+            <!-- Common Phrases -->
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="form-label">Signature Phrases</label>
+              <div class="flex flex-wrap gap-2 mb-2">
+                <span class="badge badge-primary">Let's dive in</span>
+                <span class="badge badge-primary">Here's the thing</span>
+                <span class="badge badge-primary">That's awesome</span>
+                <span class="badge badge-primary">Quick tip</span>
+              </div>
+              <input type="text" class="form-input" placeholder="Add more phrases...">
+            </div>
+
+            <!-- Forbidden Words -->
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="form-label">Words to Avoid</label>
+              <input type="text" class="form-input" placeholder="Enter words or phrases you never use">
+              <span class="form-hint">Comma-separated list</span>
+            </div>
+
+            <!-- Content Structure -->
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="form-label">Typical Content Structure</label>
+              <textarea class="form-textarea" rows="4">1. Strong hook with a question
+2. Quick intro (3-5 seconds)
+3. Main content with examples
+4. Key takeaway summary
+5. Clear call-to-action</textarea>
+            </div>
+          </div>
+
+          <div class="alert alert-info mt-6">
+            <strong>How we use this:</strong><br>
+            Your Style Card is used to generate content that sounds like you. We'll match your tone, vocabulary, pacing, and structure patterns in every project.
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <a href="onboarding-step3.html" class="btn btn-outline">← Back</a>
+        <div class="flex gap-2">
+          <button type="button" class="btn btn-secondary">Regenerate Style Card</button>
+          <a href="onboarding-step5.html" class="btn btn-primary">Looks Good! Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

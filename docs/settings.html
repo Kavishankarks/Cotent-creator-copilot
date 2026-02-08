@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Content Creator Copilot</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🎬 Creator Copilot</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="workspace-switcher mb-4">
+          <div>
+            <div class="font-medium">My Workspace</div>
+            <div class="text-xs text-gray-500">Free Trial</div>
+          </div>
+          <span>▼</span>
+        </div>
+        <a href="dashboard.html" class="nav-item">
+          <span class="nav-item-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="projects.html" class="nav-item">
+          <span class="nav-item-icon">📁</span>
+          Projects
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">📚</span>
+          Templates
+        </a>
+        <a href="#" class="nav-item">
+          <span class="nav-item-icon">🎨</span>
+          Assets Library
+        </a>
+        <div class="nav-section-title">Workspace</div>
+        <a href="team.html" class="nav-item">
+          <span class="nav-item-icon">👥</span>
+          Team
+        </a>
+        <a href="analytics.html" class="nav-item">
+          <span class="nav-item-icon">📈</span>
+          Analytics
+        </a>
+        <div class="nav-section-title">Account</div>
+        <a href="billing.html" class="nav-item">
+          <span class="nav-item-icon">💳</span>
+          Billing
+        </a>
+        <a href="settings.html" class="nav-item active">
+          <span class="nav-item-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mb-4">
+          <div class="usage-meter">
+            <div class="usage-meter-header">
+              <span class="usage-meter-label">Projects Used</span>
+              <span class="usage-meter-value">2 / 3</span>
+            </div>
+            <div class="usage-meter-bar">
+              <div class="usage-meter-fill medium" style="width: 66%;"></div>
+            </div>
+          </div>
+          <a href="billing.html" class="text-xs">Upgrade for unlimited →</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700);">JD</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="font-medium text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Jane Doe</div>
+            <div class="text-xs text-gray-500">jane@example.com</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1 class="text-lg font-semibold">Settings</h1>
+          <p class="text-sm text-gray-600">Manage your workspace and account preferences</p>
+        </div>
+      </header>
+
+      <div class="content-area">
+        <!-- Tabs -->
+        <div class="tabs mb-6">
+          <ul class="tabs-list">
+            <li><a href="#" class="tab active">Profile</a></li>
+            <li><a href="#" class="tab">Workspace</a></li>
+            <li><a href="#" class="tab">Brand Kit</a></li>
+            <li><a href="#" class="tab">API Keys</a></li>
+            <li><a href="#" class="tab">Data & Privacy</a></li>
+          </ul>
+        </div>
+
+        <!-- Profile Settings -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Profile Information</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="grid grid-cols-2 gap-6">
+                <div class="form-group">
+                  <label class="form-label form-label-required">Full Name</label>
+                  <input type="text" class="form-input" value="Jane Doe">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label form-label-required">Email</label>
+                  <input type="email" class="form-input" value="jane@example.com">
+                  <span class="form-hint">Your email is verified ✓</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Job Title</label>
+                  <input type="text" class="form-input" placeholder="Content Creator">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Time Zone</label>
+                  <select class="form-select">
+                    <option>UTC-8 (Pacific Time)</option>
+                    <option>UTC-5 (Eastern Time)</option>
+                    <option>UTC+0 (GMT)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Profile Picture</label>
+                <div class="flex items-center gap-4">
+                  <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--primary-100); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--primary-700); font-size: 1.5rem;">JD</div>
+                  <div>
+                    <button type="button" class="btn btn-outline btn-sm">Upload New</button>
+                    <p class="text-xs text-gray-500 mt-2">JPG, PNG or GIF. Max size 2MB.</p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="flex justify-end gap-2">
+              <button class="btn btn-outline">Cancel</button>
+              <button class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Change Password -->
+        <div class="card mb-6">
+          <div class="card-header">
+            <h3 class="card-title">Change Password</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group" style="max-width: 400px;">
+                <label class="form-label form-label-required">Current Password</label>
+                <input type="password" class="form-input" placeholder="••••••••">
+              </div>
+
+              <div class="grid grid-cols-2 gap-6" style="max-width: 800px;">
+                <div class="form-group">
+                  <label class="form-label form-label-required">New Password</label>
+                  <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label form-label-required">Confirm New Password</label>
+                  <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary">Update Password</button>
+          </div>
+        </div>
+
+        <!-- Workspace Settings (Hidden Tab) -->
+        <div id="workspace-settings" style="display: none;">
+          <div class="card mb-6">
+            <div class="card-header">
+              <h3 class="card-title">Workspace Information</h3>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group" style="max-width: 500px;">
+                  <label class="form-label form-label-required">Workspace Name</label>
+                  <input type="text" class="form-input" value="My Workspace">
+                </div>
+
+                <div class="form-group" style="max-width: 500px;">
+                  <label class="form-label">Workspace URL</label>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">creatorcop.io/</span>
+                    <input type="text" class="form-input" value="my-workspace" style="flex: 1;">
+                  </div>
+                  <span class="form-hint">This is your unique workspace identifier</span>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <div class="flex justify-end gap-2">
+                <button class="btn btn-outline">Cancel</button>
+                <button class="btn btn-primary">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brand Kit (Hidden Tab) -->
+        <div id="brand-kit" style="display: none;">
+          <div class="card mb-6">
+            <div class="card-header">
+              <h3 class="card-title">Brand Guidelines</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-gray-600 mb-6">Set brand rules that will be applied to all AI-generated content</p>
+
+              <form>
+                <div class="form-group">
+                  <label class="form-label">Brand Tone</label>
+                  <select class="form-select" style="max-width: 400px;">
+                    <option>Professional</option>
+                    <option>Casual & Friendly</option>
+                    <option>Energetic & Fun</option>
+                    <option>Educational</option>
+                    <option>Inspirational</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Forbidden Words</label>
+                  <input type="text" class="form-input" placeholder="Enter words to avoid, separated by commas">
+                  <span class="form-hint">These words will never appear in generated content</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Required Phrases</label>
+                  <textarea class="form-textarea" rows="3" placeholder="Enter phrases that should be included when relevant"></textarea>
+                  <span class="form-hint">Optional: Add signature phrases or catchphrases</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Content Constraints</label>
+                  <div class="flex flex-col gap-2">
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox">
+                      <span class="text-sm ml-2">Avoid controversial topics</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox">
+                      <span class="text-sm ml-2">Keep language family-friendly</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input type="checkbox" class="form-checkbox" checked>
+                      <span class="text-sm ml-2">Include calls-to-action</span>
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <div class="flex justify-end gap-2">
+                <button class="btn btn-outline">Reset to Default</button>
+                <button class="btn btn-primary">Save Brand Kit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Keys (Hidden Tab) -->
+        <div id="api-keys" style="display: none;">
+          <div class="card mb-6">
+            <div class="card-header">
+              <div class="flex items-center justify-between">
+                <h3 class="card-title">API Keys (BYOK)</h3>
+                <span class="badge badge-warning">Enterprise Only</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="text-gray-600 mb-6">Bring Your Own Key (BYOK) to use your own OpenAI API credits</p>
+
+              <div class="alert alert-warning mb-6">
+                <strong>Upgrade Required:</strong> BYOK is available on Enterprise plans only. <a href="billing.html">Contact sales</a>
+              </div>
+
+              <form>
+                <div class="form-group">
+                  <label class="form-label">OpenAI API Key</label>
+                  <input type="password" class="form-input" placeholder="sk-..." disabled>
+                  <span class="form-hint">Your API key is encrypted and stored securely</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="flex items-center">
+                    <input type="checkbox" class="form-checkbox" disabled>
+                    <span class="text-sm ml-2">Use my own API key for all AI operations</span>
+                  </label>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data & Privacy -->
+        <div id="data-privacy" style="display: none;">
+          <div class="card mb-6">
+            <div class="card-header">
+              <h3 class="card-title">Data Retention</h3>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label class="form-label">Auto-delete artifacts after</label>
+                  <select class="form-select" style="max-width: 300px;">
+                    <option>Never</option>
+                    <option>30 days</option>
+                    <option>60 days</option>
+                    <option selected>90 days</option>
+                    <option>180 days</option>
+                  </select>
+                  <span class="form-hint">Projects will be preserved, but exported files will be deleted</span>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">Save Settings</button>
+            </div>
+          </div>
+
+          <div class="card mb-6">
+            <div class="card-header">
+              <h3 class="card-title">Export Your Data</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-gray-600 mb-4">Download a complete copy of your workspace data including all projects, scripts, and settings.</p>
+              <button class="btn btn-outline">Request Data Export</button>
+            </div>
+          </div>
+
+          <div class="card" style="border-color: var(--danger-300);">
+            <div class="card-header" style="background: var(--danger-50);">
+              <h3 class="card-title" style="color: var(--danger-700);">Danger Zone</h3>
+            </div>
+            <div class="card-body">
+              <div class="mb-6">
+                <h4 class="font-medium mb-2">Delete Workspace</h4>
+                <p class="text-sm text-gray-600 mb-3">Permanently delete this workspace and all associated data. This action cannot be undone.</p>
+                <button class="btn btn-danger">Delete Workspace</button>
+              </div>
+
+              <div>
+                <h4 class="font-medium mb-2">Delete Account</h4>
+                <p class="text-sm text-gray-600 mb-3">Permanently delete your account and all workspaces you own. This action cannot be undone.</p>
+                <button class="btn btn-danger">Delete Account</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Email Notifications</h3>
+          </div>
+          <div class="card-body">
+            <div class="flex flex-col gap-4">
+              <label class="flex items-center justify-between">
+                <div>
+                  <div class="font-medium">Project completed</div>
+                  <div class="text-sm text-gray-600">Get notified when your content generation finishes</div>
+                </div>
+                <input type="checkbox" class="form-checkbox" checked>
+              </label>
+
+              <label class="flex items-center justify-between">
+                <div>
+                  <div class="font-medium">Team invitations</div>
+                  <div class="text-sm text-gray-600">When someone invites you to a workspace</div>
+                </div>
+                <input type="checkbox" class="form-checkbox" checked>
+              </label>
+
+              <label class="flex items-center justify-between">
+                <div>
+                  <div class="font-medium">Quota warnings</div>
+                  <div class="text-sm text-gray-600">When you're approaching usage limits</div>
+                </div>
+                <input type="checkbox" class="form-checkbox" checked>
+              </label>
+
+              <label class="flex items-center justify-between">
+                <div>
+                  <div class="font-medium">Product updates</div>
+                  <div class="text-sm text-gray-600">News about new features and improvements</div>
+                </div>
+                <input type="checkbox" class="form-checkbox">
+              </label>
+
+              <label class="flex items-center justify-between">
+                <div>
+                  <div class="font-medium">Marketing emails</div>
+                  <div class="text-sm text-gray-600">Tips, best practices, and promotions</div>
+                </div>
+                <input type="checkbox" class="form-checkbox">
+              </label>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary">Save Preferences</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
