@@ -62,24 +62,3 @@ The system operates on an event-driven microservices architecture:
 5.  **Workers** execute tasks using specific AI models and store results in S3/Mongo.
 6.  **Postgres** tracks the state and metadata of the entire process.
 7.  **WebSockets** push real-time updates back to the React frontend.
-
-## 📦 Getting Started
-
-### Prerequisites
-- Node.js & npm
-- Java JDK 17+
-- Python 3.10+
-- Docker (for local Postgres/Mongo/Kafka)
-
-### Run Locally (Frontend)
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Run Locally (Backend Services)
-*Instructions for starting backend services to be added.*
-
-## 📄 License
-Proprietary

@@ -7,23 +7,176 @@
         @apply bg-background text-text-main;
         font-family: 'Space Grotesk', sans-serif;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+        /* Prevent horizontal scrollbar on main body */
     }
 }
 
 @layer components {
+
+    /* Carbon Fiber Texture Pattern */
+    .bg-carbon {
+        background-color: #050505;
+        background-image:
+            radial-gradient(#1a1a1a 1px, transparent 1px),
+            radial-gradient(#1a1a1a 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+    }
+
+    /* HUD Scanlines overlay */
+    .scanlines {
+        position: relative;
+    }
+
+    .scanlines::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+        z-index: 40;
+        background-size: 100% 2px, 3px 100%;
+        pointer-events: none;
+        opacity: 0.3;
+    }
+
+    /* Crosshairs */
+    .crosshair-corner {
+        @apply absolute size-6 border-primary/50 pointer-events-none z-50;
+    }
+
     .glass-card {
-        @apply bg-surface/50 backdrop-blur-xl border border-white/5 shadow-xl;
+        @apply bg-surface/40 backdrop-blur-2xl border border-white/10;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .glass-card-hover {
-        @apply transition-all duration-300 hover:bg-surface-highlight/50 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1;
+        @apply transition-all duration-500 ease-out hover:bg-surface-highlight/50 hover:border-primary/30 hover:-translate-y-1.5;
+    }
+
+    .glass-card-hover:hover {
+        box-shadow: 0 16px 48px rgba(14, 165, 233, 0.15);
+    }
+
+    .glass-panel {
+        @apply bg-surface/80 backdrop-blur-xl border border-white/10;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     }
 
     .hero-gradient {
-        background: radial-gradient(circle at center, rgba(14, 165, 233, 0.15) 0%, rgba(11, 17, 33, 0) 70%);
+        background: radial-gradient(circle at center 30%, rgba(14, 165, 233, 0.15) 0%, rgba(139, 92, 246, 0.1) 20%, rgba(11, 17, 33, 0) 60%);
+    }
+
+    .hud-text {
+        @apply font-mono text-primary font-bold tracking-widest uppercase;
+    }
+
+    .hud-glow {
+        text-shadow: 0 0 10px rgba(255, 176, 0, 0.6);
     }
 
     .text-gradient {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-dark to-primary;
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-primary to-primary-dark;
     }
+
+    .text-gradient-secondary {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary;
+    }
+
+    .animated-border {
+        position: relative;
+    }
+
+    .animated-border::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #0EA5E9, #8B5CF6, #0EA5E9);
+        background-size: 200% auto;
+        animation: gradient-border 3s linear infinite;
+        z-index: -1;
+    }
+}
+
+@keyframes gradient-border {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float-delayed {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float-delayed 8s ease-in-out infinite alternate;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.animate-scanline {
+    animation: scanline 8s linear infinite;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 176, 0, 0.4), transparent);
+    z-index: 45;
+    pointer-events: none;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.animate-blink {
+    animation: blink 1.5s step-end infinite;
 }
