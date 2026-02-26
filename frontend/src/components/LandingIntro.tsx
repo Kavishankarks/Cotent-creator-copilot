@@ -135,18 +135,38 @@ const LandingIntro: React.FC = () => {
         target: targetRef,
     });
 
-    // We map custom vertical scroll progress to horizontal translation
-    // 0% scroll -> 0 horizontal
-    // 100% scroll -> -66.66% horizontal (moving left by 2 screen widths to show 3 total panels)
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
-
     // Animate opacity of 3D canvas based on scroll (fade out slightly as we move away from hero)
     const canvasOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [1, 0.3, 0.1]);
     const canvasScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
+    const storyModules = [
+        { id: 'MOD_01', title: 'Image Generation', desc: 'Turn story beats into vivid keyframes. Describe a scene once, then branch it into variants, angles, and art styles on demand.', icon: 'photo_library', meta: ['4:3', '8 variants'] },
+        { id: 'MOD_02', title: 'Transcription Engine', desc: 'Instant speech-to-text with speaker detection, timestamps, and clean punctuation for captions or scripts.', icon: 'graphic_eq', meta: ['99% acc', 'SPEAKERS'] },
+        { id: 'MOD_03', title: 'Audio Clone', desc: 'Create a natural voice model from a short sample and keep narration consistent across every cut.', icon: 'record_voice_over', meta: ['Voiceprint', '30s seed'] },
+        { id: 'MOD_04', title: 'Precision Editing', desc: 'Cut, stitch, and enhance with timeline intelligence. The edit engine preserves rhythm while cleaning audio, color, and pacing.', icon: 'tune', meta: ['Auto-cut', 'Color'] },
+        { id: 'MOD_05', title: 'Video Generation', desc: 'From storyboard to cinematic motion. Generate sequences, transitions, and overlays that maintain continuity across shots.', icon: 'movie', meta: ['12s shot', 'Cinematic'] },
+        { id: 'MOD_06', title: 'Personalized Profile', desc: 'Your signature tone, brand colors, and pacing locked into every output. The system adapts to you, not the other way around.', icon: 'badge', meta: ['Style lock', 'Tone'] },
+        { id: 'MOD_07', title: 'Subtitle Styling', desc: 'Auto-burn captions with kinetic typography, emphasis highlights, and platform-safe readability.', icon: 'closed_caption', meta: ['Kinetic', 'Readable'] },
+        { id: 'MOD_08', title: 'Music Bed AI', desc: 'Generate licensed-safe music beds, auto-ducking under voice, and dynamic rises for hooks.', icon: 'music_note', meta: ['Duck', 'Crescendo'] },
+        { id: 'MOD_09', title: 'Smart Resize', desc: 'Instantly reframe for Reels, Shorts, TikTok, and YouTube while preserving subject focus.', icon: 'aspect_ratio', meta: ['Auto-pan', 'Safe'] },
+        { id: 'MOD_10', title: 'Hook Optimizer', desc: 'Predictive hook testing and CTA suggestions to improve retention in the first 3 seconds.', icon: 'bolt', meta: ['0-3s', 'CTR'] },
+        { id: 'MOD_11', title: 'Brand Kit', desc: 'Lock logos, fonts, and color systems across every render for consistent identity.', icon: 'palette', meta: ['Logo', 'Fonts'] },
+        { id: 'MOD_12', title: 'Auto B-Roll', desc: 'Scene-aware b-roll recommendations and insert shots aligned to your narrative arc.', icon: 'movie_filter', meta: ['B-roll', 'Arc'] },
+        { id: 'MOD_13', title: 'Scene Continuity', desc: 'Match lighting, wardrobe, and motion between shots to keep visual flow seamless.', icon: 'auto_awesome_motion', meta: ['Match', 'Flow'] },
+        { id: 'MOD_14', title: 'A/B Variants', desc: 'Generate versions with different hooks, pacing, or edits and compare results.', icon: 'layers', meta: ['Variants', 'Test'] },
+        { id: 'MOD_15', title: 'Publish Scheduler', desc: 'Queue and auto-post across platforms with title, tags, and thumbnail presets.', icon: 'schedule', meta: ['Queue', 'Auto-post'] },
+        { id: 'MOD_16', title: 'Performance Insights', desc: 'Analytics-driven recommendations for cadence, length, and creative direction.', icon: 'insights', meta: ['Insights', 'Lift'] },
+    ];
+
     return (
         <div className="bg-carbon text-text-main font-sans min-h-screen selection:bg-primary/30 selection:text-white">
             <HUDOverlays />
+
+            {/* Film grain + light leak overlays */}
+            <div className="fixed inset-0 z-[2] pointer-events-none mix-blend-screen opacity-[0.18]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,176,0,0.18),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,120,80,0.14),transparent_40%),radial-gradient(circle_at_30%_80%,rgba(120,160,255,0.12),transparent_45%)]" />
+            </div>
+            <div className="fixed inset-0 z-[3] pointer-events-none opacity-[0.08] bg-[linear-gradient(0deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:3px_3px]" />
 
             {/* Top Navigation Bar - Fixed */}
             <motion.div
@@ -190,28 +210,18 @@ const LandingIntro: React.FC = () => {
 
             {/* 
                 SCROLLYTELLING WRAPPER 
-                Height dictates how much vertical scrolling is needed to complete the horizontal track.
-                Using 400vh gives a smooth scrolling experience.
+                Vertical cinema-roll layout.
             */}
-            <div ref={targetRef} className="relative h-[400vh]">
+            <div ref={targetRef} className="relative">
 
-                {/* 
-                    STICKY VIEWPORT
-                    Stays fixed on screen while the user scrolls down, moving the horizontal container left.
-                */}
-                <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-
-                    {/* HORIZONTAL TRACK */}
-                    <motion.div style={{ x }} className="flex w-[300vw]">
-
-                        {/* CHAPTER 1: HERO */}
-                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                {/* CHAPTER 1: HERO */}
+                <section className="min-h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
                             {/* Ambient light blobs */}
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                 <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-[100px]"></div>
                                 <div className="absolute bottom-1/4 left-1/3 w-56 h-56 bg-white/5 rounded-full blur-[80px]"></div>
                             </div>
-                            <div className="max-w-3xl ml-0 md:ml-12 pointer-events-none bg-white/[0.03] backdrop-blur-xl border border-white/[0.07] p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)] relative">
+                            <div className="max-w-4xl ml-0 md:ml-12 pointer-events-none bg-white/[0.035] backdrop-blur-xl border border-white/[0.08] p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)] relative">
                                 {/* Glass inner top-edge highlight */}
                                 <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                                 <motion.div
@@ -240,8 +250,51 @@ const LandingIntro: React.FC = () => {
                                     transition={{ duration: 0.8, delay: 0.6 }}
                                     className="text-slate-400 text-lg sm:text-xl font-light leading-relaxed max-w-xl mb-12 border-l border-white/10 pl-6"
                                 >
-                                    The ultimate Copilot for content creators. From initial spark to final render, armed with production-grade AI tooling in a precision interface.
+                                    The ultimate Copilot for content creators. From the first spark to the final render, your personalized profile guides tone, pacing, and visual style while the system shapes each scene with production-grade AI.
                                 </motion.p>
+
+                                {/* Creator profile card */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.7 }}
+                                    className="pointer-events-auto mb-10 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 bg-white/[0.04] border border-white/10 p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.07)]"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/70 to-primary/20 border border-primary/40 shadow-[0_0_20px_rgba(255,176,0,0.3)]" />
+                                        <div>
+                                            <div className="text-white font-semibold tracking-wide">Creator Profile</div>
+                                            <div className="text-slate-400 text-xs font-mono">VOICEPRINT: LOCKED</div>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                        <div className="px-4 py-3 border border-white/10 bg-white/[0.03]">
+                                            <div className="text-xs text-slate-400">Brand Kit</div>
+                                            <div className="text-white text-sm">Amber / Slate / Mono</div>
+                                        </div>
+                                        <div className="px-4 py-3 border border-white/10 bg-white/[0.03]">
+                                            <div className="text-xs text-slate-400">Cadence</div>
+                                            <div className="text-white text-sm">Fast Hook, Slow Burn</div>
+                                        </div>
+                                        <div className="px-4 py-3 border border-white/10 bg-white/[0.03]">
+                                            <div className="text-xs text-slate-400">Style</div>
+                                            <div className="text-white text-sm">Cinematic Documentary</div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+
+                                {/* Story timeline strip */}
+                                <div className="pointer-events-none mb-12">
+                                    <div className="text-slate-500 text-xs uppercase tracking-[0.2em] mb-3">Story Beat Timeline</div>
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        {['Hook', 'Build', 'Reveal', 'Peak', 'CTA'].map((beat, idx) => (
+                                            <div key={beat} className="flex items-center gap-3">
+                                                <div className="px-3 py-1 border border-primary/30 text-primary/90 text-xs font-mono bg-primary/5">{beat}</div>
+                                                {idx < 4 && <div className="w-8 h-[1px] bg-white/10"></div>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
@@ -263,26 +316,64 @@ const LandingIntro: React.FC = () => {
                             </div>
                         </section>
 
-                        {/* CHAPTER 2: FEATURES */}
-                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                {/* CHAPTER 2: FEATURES */}
+                <section className="min-h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
                             {/* Ambient light blobs */}
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/8 rounded-full blur-[120px]"></div>
                                 <div className="absolute top-1/4 right-1/4 w-48 h-48 bg-white/5 rounded-full blur-[80px]"></div>
                             </div>
                             <div className="max-w-6xl w-full mx-auto">
-                                <div className="flex items-center gap-4 mb-16">
-                                    <h2 className="text-white text-4xl sm:text-6xl font-light tracking-tight">Technical <span className="font-bold">Specs</span></h2>
+                                <div className="flex items-center gap-4 mb-6">
+                                    <h2 className="text-white text-4xl sm:text-6xl font-light tracking-tight">Story <span className="font-bold">Pipeline</span></h2>
                                     <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/50 to-transparent"></div>
                                 </div>
+                                <p className="text-slate-400 text-base sm:text-lg font-light leading-relaxed max-w-2xl mb-12">
+                                    Build a narrative that feels authored, not automated. Your creator profile learns your voice, then choreographs image generation, precision editing, and cinematic video output into a single, flowing storyline.
+                                </p>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pointer-events-auto">
-                                    {[
-                                        { id: 'MOD_01', title: 'Whisper Transcode', desc: 'Flawless audio-to-text with high-detail precision, punctuation generation, and noise isolation.', icon: 'graphic_eq' },
-                                        { id: 'MOD_02', title: 'Neural Voice Clone', desc: 'Human-grade AI voices that capture emotion. Clone your own vocal signature with 30s of audio payload.', icon: 'record_voice_over' },
-                                        { id: 'MOD_03', title: 'Script Engine V4', desc: 'Synthesize full storyboards from a single sentence prompt using advanced GPT-4 architecture.', icon: 'auto_fix_high' },
-                                    ].map((feat) => (
-                                        <div key={feat.id} className="group p-8 relative overflow-hidden transition-all duration-500 bg-white/[0.05] backdrop-blur-2xl border border-white/10 hover:border-primary/40 hover:bg-white/[0.08] hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_30px_rgba(255,176,0,0.08),inset_0_1px_0_rgba(255,255,255,0.1)]">
+                                {/* Featured module */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                    className="pointer-events-auto mb-10 p-8 border border-primary/40 bg-primary/10 backdrop-blur-xl shadow-[0_16px_40px_rgba(0,0,0,0.45),0_0_30px_rgba(255,176,0,0.2)]"
+                                >
+                                    <div className="flex items-center justify-between gap-6">
+                                        <div>
+                                            <div className="hud-text text-xs text-primary/80 mb-2">FEATURED MODULE</div>
+                                            <div className="text-white text-3xl font-semibold">Creator Control Room</div>
+                                            <p className="text-slate-300 mt-3 max-w-2xl">
+                                                A single surface that stitches your script, assets, voice, and timelines together. Every choice updates the story arc in real time.
+                                            </p>
+                                        </div>
+                                        <div className="hidden md:flex items-center gap-3">
+                                            <span className="px-3 py-2 text-xs font-mono border border-primary/40 bg-primary/10 text-primary">LIVE_PREVIEW</span>
+                                            <span className="px-3 py-2 text-xs font-mono border border-white/20 bg-white/[0.04] text-slate-300">SYNCED_ASSETS</span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    className="grid grid-cols-1 md:grid-cols-3 gap-8 pointer-events-auto"
+                                    initial="hidden"
+                                    whileInView="show"
+                                    viewport={{ once: true }}
+                                    variants={{
+                                        hidden: {},
+                                        show: { transition: { staggerChildren: 0.08 } },
+                                    }}
+                                >
+                                    {storyModules.map((feat) => (
+                                        <motion.div
+                                            key={feat.id}
+                                            variants={{
+                                                hidden: { opacity: 0, y: 20 },
+                                                show: { opacity: 1, y: 0 },
+                                            }}
+                                            className="group p-8 relative overflow-hidden transition-all duration-500 bg-white/[0.05] backdrop-blur-2xl border border-white/10 hover:border-primary/40 hover:bg-white/[0.08] hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_30px_rgba(255,176,0,0.08),inset_0_1px_0_rgba(255,255,255,0.1)]"
+                                        >
                                             {/* Glass top-edge highlight */}
                                             <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
                                             {/* decorative corners */}
@@ -291,20 +382,28 @@ const LandingIntro: React.FC = () => {
                                             <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary/30 group-hover:border-primary transition-colors"></div>
                                             <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/30 group-hover:border-primary transition-colors"></div>
 
-                                            <div className="flex justify-between items-start mb-8">
+                                            <div className="flex justify-between items-start mb-6">
                                                 <span className="material-symbols-outlined text-4xl text-slate-500 group-hover:text-primary transition-colors drop-shadow-lg">{feat.icon}</span>
                                                 <span className="hud-text text-[10px] text-primary/60 border border-primary/20 px-2 py-0.5 bg-primary/5 backdrop-blur-sm">{feat.id}</span>
                                             </div>
-                                            <h3 className="text-white text-2xl font-bold mb-4">{feat.title}</h3>
-                                            <p className="text-slate-400 font-light leading-relaxed">{feat.desc}</p>
-                                        </div>
+                                            <h3 className="text-white text-2xl font-bold mb-3">{feat.title}</h3>
+                                            <p className="text-slate-400 font-light leading-relaxed mb-5">{feat.desc}</p>
+                                            <div className="flex items-center gap-2">
+                                                {feat.meta.map((chip) => (
+                                                    <span key={chip} className="text-[10px] font-mono uppercase tracking-widest text-slate-300 border border-white/10 bg-white/[0.03] px-2 py-1">{chip}</span>
+                                                ))}
+                                            </div>
+                                            <div className="mt-4 h-2 w-full bg-white/5">
+                                                <div className="h-full w-2/3 bg-gradient-to-r from-primary/70 to-primary/10"></div>
+                                            </div>
+                                        </motion.div>
                                     ))}
-                                </div>
+                                </motion.div>
                             </div>
                         </section>
 
-                        {/* CHAPTER 3: PLATFORMS AND PRICING */}
-                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                {/* CHAPTER 3: PLATFORMS AND PRICING */}
+                <section className="min-h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
                             {/* Ambient light blobs */}
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                 <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[100px]"></div>
@@ -373,10 +472,7 @@ const LandingIntro: React.FC = () => {
                                 </div>
 
                             </div>
-                        </section>
-
-                    </motion.div>
-                </div>
+                </section>
             </div>
 
         </div>
