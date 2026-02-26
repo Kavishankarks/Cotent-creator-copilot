@@ -153,7 +153,7 @@ const LandingIntro: React.FC = () => {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="fixed top-0 left-0 right-0 z-40 flex items-center bg-background/50 backdrop-blur-md p-4 sm:p-6 justify-between border-b border-primary/10"
+                className="fixed top-0 left-0 right-0 z-40 flex items-center bg-white/[0.04] backdrop-blur-2xl p-4 sm:p-6 justify-between border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]"
             >
                 <div className="flex items-center gap-4 group cursor-pointer">
                     <div className="size-2 bg-primary/80 group-hover:bg-primary group-hover:shadow-[0_0_10px_#FFB000] rounded-sm transition-all duration-300"></div>
@@ -206,7 +206,14 @@ const LandingIntro: React.FC = () => {
 
                         {/* CHAPTER 1: HERO */}
                         <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
-                            <div className="max-w-3xl ml-0 md:ml-12 pointer-events-none">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-[100px]"></div>
+                                <div className="absolute bottom-1/4 left-1/3 w-56 h-56 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
+                            <div className="max-w-3xl ml-0 md:ml-12 pointer-events-none bg-white/[0.03] backdrop-blur-xl border border-white/[0.07] p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)] relative">
+                                {/* Glass inner top-edge highlight */}
+                                <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                                 <motion.div
                                     initial={{ opacity: 0, x: -50 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -258,6 +265,11 @@ const LandingIntro: React.FC = () => {
 
                         {/* CHAPTER 2: FEATURES */}
                         <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/8 rounded-full blur-[120px]"></div>
+                                <div className="absolute top-1/4 right-1/4 w-48 h-48 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
                             <div className="max-w-6xl w-full mx-auto">
                                 <div className="flex items-center gap-4 mb-16">
                                     <h2 className="text-white text-4xl sm:text-6xl font-light tracking-tight">Technical <span className="font-bold">Specs</span></h2>
@@ -270,7 +282,9 @@ const LandingIntro: React.FC = () => {
                                         { id: 'MOD_02', title: 'Neural Voice Clone', desc: 'Human-grade AI voices that capture emotion. Clone your own vocal signature with 30s of audio payload.', icon: 'record_voice_over' },
                                         { id: 'MOD_03', title: 'Script Engine V4', desc: 'Synthesize full storyboards from a single sentence prompt using advanced GPT-4 architecture.', icon: 'auto_fix_high' },
                                     ].map((feat) => (
-                                        <div key={feat.id} className="glass-panel group p-8 relative overflow-hidden transition-all duration-500 hover:border-primary/50 hover:bg-surface/90 hover:-translate-y-2">
+                                        <div key={feat.id} className="group p-8 relative overflow-hidden transition-all duration-500 bg-white/[0.05] backdrop-blur-2xl border border-white/10 hover:border-primary/40 hover:bg-white/[0.08] hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_30px_rgba(255,176,0,0.08),inset_0_1px_0_rgba(255,255,255,0.1)]">
+                                            {/* Glass top-edge highlight */}
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
                                             {/* decorative corners */}
                                             <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/30 group-hover:border-primary transition-colors"></div>
                                             <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary/30 group-hover:border-primary transition-colors"></div>
@@ -279,7 +293,7 @@ const LandingIntro: React.FC = () => {
 
                                             <div className="flex justify-between items-start mb-8">
                                                 <span className="material-symbols-outlined text-4xl text-slate-500 group-hover:text-primary transition-colors drop-shadow-lg">{feat.icon}</span>
-                                                <span className="hud-text text-[10px] text-primary/60 border border-primary/20 px-2 py-0.5">{feat.id}</span>
+                                                <span className="hud-text text-[10px] text-primary/60 border border-primary/20 px-2 py-0.5 bg-primary/5 backdrop-blur-sm">{feat.id}</span>
                                             </div>
                                             <h3 className="text-white text-2xl font-bold mb-4">{feat.title}</h3>
                                             <p className="text-slate-400 font-light leading-relaxed">{feat.desc}</p>
@@ -291,6 +305,11 @@ const LandingIntro: React.FC = () => {
 
                         {/* CHAPTER 3: PLATFORMS AND PRICING */}
                         <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[100px]"></div>
+                                <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
                             <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 pointer-events-auto">
 
                                 {/* Export Targets */}
@@ -301,15 +320,15 @@ const LandingIntro: React.FC = () => {
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         {['Reels', 'Shorts', 'YouTube', 'TikTok'].map((platform) => (
-                                            <div key={platform} className="flex items-center justify-between p-4 border border-white/5 bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-colors group cursor-crosshair">
+                                            <div key={platform} className="flex items-center justify-between p-4 border border-white/10 bg-white/[0.04] backdrop-blur-md hover:bg-primary/10 hover:border-primary/30 transition-all group cursor-crosshair shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                                                 <span className="text-slate-300 font-mono text-sm group-hover:text-white transition-colors">{platform}</span>
                                                 <span className="material-symbols-outlined text-primary/50 group-hover:text-primary text-sm">check_circle</span>
                                             </div>
                                         ))}
                                     </div>
 
-                                    <div className="mt-12 p-6 border border-primary/20 bg-primary/5 relative overflow-hidden">
-                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+                                    <div className="mt-12 p-6 border border-white/10 bg-white/[0.04] backdrop-blur-xl relative overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.07)]">
+                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
                                         <p className="font-mono text-primary text-xs mb-2">SYSTEM_STATUS_NORMAL</p>
                                         <p className="text-slate-300 text-sm font-light">"Built for ambitious creators and scaling teams. Multi-tenant architecture with granular RBAC permissions."</p>
                                     </div>
@@ -324,26 +343,29 @@ const LandingIntro: React.FC = () => {
 
                                     <div className="flex flex-col gap-6">
                                         {/* Tier 1 */}
-                                        <div className="flex items-center justify-between p-6 border border-white/10 bg-surface/50 hover:bg-surface backdrop-blur-md transition-all">
+                                        <div className="flex items-center justify-between p-6 border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:bg-white/[0.08] transition-all shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.07)] relative overflow-hidden">
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
                                             <div>
                                                 <h4 className="text-white font-bold text-xl mb-1">Creator Tier</h4>
                                                 <p className="text-slate-500 text-sm font-mono">$29.00 / CYCLE</p>
                                             </div>
-                                            <button className="px-6 py-2 border border-primary text-primary font-mono text-xs hover:bg-primary hover:text-black transition-colors">
+                                            <button className="px-6 py-2 border border-primary/60 text-primary font-mono text-xs hover:bg-primary hover:text-black hover:border-primary transition-all backdrop-blur-sm">
                                                 [ SELECT ]
                                             </button>
                                         </div>
 
                                         {/* Tier 2 */}
-                                        <div className="flex items-center justify-between p-6 border border-primary bg-primary/10 backdrop-blur-md relative transform hover:scale-[1.02] transition-transform">
-                                            <div className="absolute -top-3 left-6 bg-primary text-black font-mono text-[10px] font-bold px-2 py-0.5 tracking-wider">
+                                        <div className="flex items-center justify-between p-6 border border-primary/60 bg-white/[0.06] backdrop-blur-xl relative transform hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,176,0,0.15),inset_0_1px_0_rgba(255,176,0,0.15)] overflow-hidden">
+                                            {/* Glass amber inner highlight */}
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+                                            <div className="absolute -top-3 left-6 bg-primary/90 backdrop-blur-sm text-black font-mono text-[10px] font-bold px-2 py-0.5 tracking-wider shadow-[0_0_10px_rgba(255,176,0,0.5)]">
                                                 RECOMMENDED_SYS
                                             </div>
                                             <div>
                                                 <h4 className="text-white font-bold text-xl mb-1">Team Tier</h4>
                                                 <p className="text-primary text-sm font-mono">$79.00 / CYCLE</p>
                                             </div>
-                                            <button className="px-6 py-2 bg-primary text-black font-mono text-xs font-bold hover:brightness-110 transition-all shadow-[0_0_15px_rgba(255,176,0,0.4)]">
+                                            <button className="px-6 py-2 bg-primary/90 backdrop-blur-sm text-black font-mono text-xs font-bold hover:brightness-110 transition-all shadow-[0_0_20px_rgba(255,176,0,0.5)]">
                                                 [ UPGRADE ]
                                             </button>
                                         </div>
