@@ -8,18 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary": "#0EA5E9", // Electric Blue
-        "primary-dark": "#0284C7",
-        "secondary": "#8B5CF6", // Violet for accents
-        "background": "#0B1121", // Very dark blue/black
-        "surface": "#151E32", // Slightly lighter for cards
-        "surface-highlight": "#1E293B", // For hover states
-        "text-main": "#F8FAFC", // White/Off-white
-        "text-muted": "#94A3B8", // Muted slate
+        "primary": "#FFB000", // Electric Amber
+        "primary-dark": "#FF8000", // Deep Amber
+        "secondary": "#E5E7EB", // Platinum/Silver for contrast
+        "background": "#050505", // Matte Obsidian Black
+        "surface": "#111111", // Slightly lighter for HUD panels
+        "surface-highlight": "#1A1A1A", // Hover states
+        "text-main": "#FFFFFF", // Pure white for high contrast
+        "text-muted": "#888888", // Technical gray
       },
       fontFamily: {
         "display": ["Space Grotesk", "sans-serif"],
-        "sans": ["Space Grotesk", "sans-serif"], // Set as default sans
+        "sans": ["Space Grotesk", "sans-serif"],
+        "mono": ["JetBrains Mono", "Fira Code", "monospace"],
       },
       borderRadius: {
         "DEFAULT": "0.5rem",

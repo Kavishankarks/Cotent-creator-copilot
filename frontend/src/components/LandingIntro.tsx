@@ -1,403 +1,386 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Cylinder, Ring, Torus, Environment, Float, MeshTransmissionMaterial, ContactShadows } from '@react-three/drei';
+import * as THREE from 'three';
 
-const LandingIntro: React.FC = () => {
-    const workflowSteps = [
-        { icon: 'lightbulb', label: 'Idea' },
-        { icon: 'face', label: 'Style Profile' },
-        { icon: 'article', label: 'Content Plan' },
-        { icon: 'record_voice_over', label: 'Voiceover' },
-        { icon: 'graphic_eq', label: 'Transcription' },
-        { icon: 'closed_caption', label: 'Captions' },
-        { icon: 'download', label: 'Export' },
-    ];
+// ----------------------------------------------------
+// 3D CAMERA LENS COMPONENT
+// ----------------------------------------------------
+const CameraLens = () => {
+    const groupRef = useRef<THREE.Group>(null);
+    const outerRingRef = useRef<THREE.Mesh>(null);
+    const innerGlassRef = useRef<THREE.Mesh>(null);
 
-    // Auto-cycling active step for animation
-    const [activeStep, setActiveStep] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveStep((prev) => (prev + 1) % workflowSteps.length);
-        }, 2000); // Slower interval for 3D effect
-        return () => clearInterval(interval);
-    }, [workflowSteps.length]);
-
-    const platforms = [
-        { name: 'Reels', icon: 'photo_camera' },
-        { name: 'Shorts', icon: 'play_circle' },
-        { name: 'YouTube', icon: 'smart_display' },
-        { name: 'TikTok', icon: 'music_note' },
-        { name: 'LinkedIn', icon: 'work' },
-        { name: 'Twitter', icon: 'tag' },
-    ];
-
-    const pricingPlans = [
-        { name: 'Free Trial', price: '$0', features: ['3 projects', '3 seats', 'Basic support'] },
-        { name: 'Creator', price: '$29/mo', features: ['Unlimited projects', '5 seats', 'Priority support'], popular: true },
-        { name: 'Team', price: '$79/mo', features: ['Unlimited projects', '15 seats', 'Dedicated support'] },
-    ];
+    useFrame((state) => {
+        const time = state.clock.getElapsedTime();
+        if (groupRef.current) {
+            // Smooth constant rotation for the whole assembly
+            groupRef.current.rotation.y = time * 0.15;
+            groupRef.current.rotation.x = Math.sin(time * 0.5) * 0.1;
+        }
+        if (outerRingRef.current) {
+            // Counter rotation for focus ring
+            outerRingRef.current.rotation.z = -time * 0.5;
+        }
+    });
 
     return (
-        <div className="bg-background text-text-main font-display min-h-screen selection:bg-primary/30 selection:text-primary-light">
-            {/* Top Navigation Bar */}
-            <div className="fixed top-0 left-0 right-0 z-50 flex items-center bg-background/80 backdrop-blur-md p-3 sm:p-4 justify-between border-b border-white/5">
-                <div className="text-white flex size-8 sm:size-10 items-center justify-center cursor-pointer hover:bg-white/5 rounded-full transition-colors">
-                    <span className="material-symbols-outlined text-xl sm:text-2xl">menu</span>
-                </div>
-                <h2 className="text-white text-base sm:text-lg font-bold leading-tight tracking-tight flex-1 text-center">Rolit Copilot</h2>
-                <div className="size-8 sm:size-10"></div>
+        <group ref={groupRef} position={[0, 0, 0]} scale={2.5}>
+            {/* Main Outer Barrel (Matte Black) */}
+            <Cylinder args={[1, 1, 1.5, 64]} rotation={[Math.PI / 2, 0, 0]}>
+                <meshStandardMaterial color="#080808" metalness={0.8} roughness={0.3} />
+            </Cylinder>
+
+            {/* Orange Accent Ring */}
+            <Ring args={[1.02, 1.08, 64]} position={[0, 0, 0.5]}>
+                <meshBasicMaterial color="#FFB000" side={THREE.DoubleSide} />
+            </Ring>
+
+            {/* Focus Ring Ribs */}
+            <Torus ref={outerRingRef} args={[1.05, 0.05, 16, 64]} position={[0, 0, 0.2]}>
+                <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.4} />
+            </Torus>
+
+            {/* Inner Barrel Stepping */}
+            <Cylinder args={[0.85, 0.85, 1.6, 64]} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.1]}>
+                <meshStandardMaterial color="#050505" metalness={1} roughness={0.2} />
+            </Cylinder>
+
+            {/* Glass Element 1 (Front) */}
+            <mesh ref={innerGlassRef} position={[0, 0, 0.75]}>
+                <cylinderGeometry args={[0.7, 0.7, 0.1, 64]} />
+                <MeshTransmissionMaterial
+                    backside
+                    thickness={0.5}
+                    roughness={0}
+                    transmission={1}
+                    ior={1.5}
+                    chromaticAberration={0.06}
+                    anisotropy={0.1}
+                    color="#ffffff"
+                />
+            </mesh>
+
+            {/* Internal Sensor Glow */}
+            <mesh position={[0, 0, -0.5]}>
+                <planeGeometry args={[1.2, 1.2]} />
+                <meshBasicMaterial color="#FFB000" transparent opacity={0.2} depthWrite={false} />
+            </mesh>
+
+            {/* Inner technical details */}
+            <Ring args={[0.5, 0.7, 32]} position={[0, 0, 0.5]}>
+                <meshStandardMaterial color="#222" metalness={0.9} roughness={0.5} />
+            </Ring>
+        </group>
+    );
+};
+
+// ----------------------------------------------------
+// HUD OVERLAYS COMPONENT
+// ----------------------------------------------------
+const HUDOverlays = () => {
+    return (
+        <div className="fixed inset-0 pointer-events-none z-50">
+            {/* CRT/Scanline Overlay */}
+            <div className="scanlines w-full h-full absolute inset-0"></div>
+            <div className="animate-scanline"></div>
+
+            {/* Corner Crosshairs */}
+            <div className="crosshair-corner top-8 left-8 border-t-2 border-l-2"></div>
+            <div className="crosshair-corner top-8 right-8 border-t-2 border-r-2"></div>
+            <div className="crosshair-corner bottom-8 left-8 border-b-2 border-l-2"></div>
+            <div className="crosshair-corner bottom-8 right-8 border-b-2 border-r-2"></div>
+
+            {/* Rec Indicator */}
+            <div className="absolute top-10 right-14 flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-red-500 animate-blink shadow-[0_0_10px_rgba(239,68,68,0.8)]"></div>
+                <span className="hud-text text-red-500 text-sm">REC</span>
             </div>
 
-            <div className="relative flex w-full flex-col overflow-x-hidden pt-12 sm:pt-14">
-                {/* Hero Section */}
-                <div className="relative min-h-[80vh] sm:min-h-[85vh] w-full">
-                    <div className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-overlay" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiWDcej21qxERmWt1qAzzKAdnNDy4PG2IQvDida4Mgj7PQ3kZCDB_KpolRiS2mYXkTmo7bRTE_j2AOGW-5bZMukcSaNxQ3n1mPtA3MokjCZVbHoKoDF1kRSocbMvui_WM1ybgvwR11NJ9g2TPekcmU3s_aUTfRrwK6HDhkovpnKD0RVkLlJ0mk4u8ybbhKyWnpcqZNy5fkbTHrvBFrlA7XNIPq4FkzrTYiTjgO78LGN76qc3mZUV32xqrepAq0pDP-7mCbOjUVQwvJ")' }}>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/80 to-background"></div>
-                    <div className="absolute inset-0 hero-gradient"></div>
+            {/* Technical Data Readouts */}
+            <div className="absolute top-10 left-14 flex flex-col gap-1">
+                <span className="hud-text text-xs opacity-70">ISO_AUTO</span>
+                <span className="hud-text text-xs opacity-70">SHUTTER_1/1000</span>
+            </div>
 
-                    <div className="relative flex h-full min-h-[80vh] sm:min-h-[85vh] flex-col items-center justify-end px-4 sm:px-6 pb-16 sm:pb-20 text-center z-10">
-                        <div className="flex flex-col gap-3 sm:gap-4 max-w-3xl mx-auto">
-                            <span className="inline-flex self-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] sm:text-xs font-bold uppercase tracking-widest border border-primary/20 shadow-[0_0_15px_rgba(14,165,233,0.3)] backdrop-blur-sm">
-                                Copilot for Content Creators
-                            </span>
-                            <h1 className="text-white text-4xl sm:text-5xl md:text-7xl font-black leading-tight tracking-[-0.033em] drop-shadow-2xl">
-                                Transform Ideas Into <br className="hidden sm:block" />
-                                <span className="text-gradient">Video Packages</span>
-                            </h1>
-                            <div className="h-16 sm:h-20 flex items-start justify-center mt-2">
-                                <p className="text-text-muted text-sm sm:text-lg font-normal leading-relaxed max-w-xl">
-                                    <TypingEffect
-                                        words={[
-                                            "Automate your creative workflow from rough ideas to polished exports.",
-                                            "Your personal AI studio: scripting, voicing, captioning, 24/7.",
-                                            "Generate viral-ready shorts with a production-grade AI Copilot."
-                                        ]}
-                                    />
-                                </p>
-                            </div>
-                            <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto sm:justify-center">
-                                <button className="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 sm:h-14 px-8 bg-primary hover:bg-primary-dark text-white text-sm sm:text-base font-bold transition-all active:scale-95 shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)]">
-                                    Get Started Free
-                                </button>
-                                <button className="flex w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 sm:h-14 px-8 bg-white/5 hover:bg-white/10 text-white border border-white/10 text-sm sm:text-base font-bold backdrop-blur-sm transition-all hover:border-white/20">
-                                    Watch Demo
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <div className="absolute bottom-10 left-14 flex items-end gap-6">
+                <div className="flex flex-col gap-1 border-l-2 border-primary/40 pl-3">
+                    <span className="hud-text text-xs opacity-60">BATTERY</span>
+                    <span className="hud-text font-bold text-sm text-white">94%_SYS_OPT</span>
                 </div>
+                <div className="flex flex-col gap-1 border-l-2 border-primary/40 pl-3">
+                    <span className="hud-text text-xs opacity-60">STORAGE</span>
+                    <span className="hud-text font-bold text-sm text-white">1.2TB_REMAINING</span>
+                </div>
+            </div>
 
-                {/* AI Workflow Pipeline Section */}
-                <section className="px-4 sm:px-6 py-16 sm:py-24 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-surface/30 skew-y-3 transform origin-top-left scale-110"></div>
-                    <div className="max-w-6xl mx-auto relative z-10">
-                        <div className="text-center mb-12 sm:mb-20">
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold leading-tight tracking-tight mb-3">AI-Powered Workflow</h2>
-                            <p className="text-text-muted text-sm sm:text-base max-w-md mx-auto">From idea to export pack in minutes, not hours.</p>
-                        </div>
-
-                        {/* 3D Workflow Animation Container */}
-                        <div className="relative flex items-center justify-center py-10 perspective-1000">
-                            {/* Connecting Line */}
-                            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/5 -translate-y-1/2 hidden md:block"></div>
-                            {/* Active Beam */}
-                            <motion.div
-                                className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent -translate-y-1/2 hidden md:block z-0 blur-[2px]"
-                                animate={{
-                                    left: `${(activeStep / (workflowSteps.length - 1)) * 100}%`,
-                                    translateX: '-50%'
-                                }}
-                                transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                                style={{ width: '300px' }}
-                            />
-
-                            {/* Steps Container */}
-                            <div className="flex flex-row items-center justify-center gap-2 md:gap-8 w-full">
-                                {workflowSteps.map((step, index) => {
-                                    const isActive = index === activeStep;
-                                    const isPast = index < activeStep;
-
-                                    return (
-                                        <div key={step.label} className="relative z-10 flex flex-col items-center gap-5">
-                                            {/* 3D Icon Container */}
-                                            <div className="relative group">
-                                                <AnimatePresence mode="wait">
-                                                    {isActive && (
-                                                        <motion.div
-                                                            initial={{ opacity: 0, scale: 0.5 }}
-                                                            animate={{ opacity: 1, scale: 1.5 }}
-                                                            exit={{ opacity: 0, scale: 0.5 }}
-                                                            className="absolute inset-0 bg-primary/40 blur-xl rounded-full"
-                                                        />
-                                                    )}
-                                                </AnimatePresence>
-
-                                                <motion.div
-                                                    className={`relative size-12 md:size-16 rounded-2xl flex items-center justify-center border transition-all duration-300 ${isActive
-                                                        ? 'bg-primary border-primary shadow-[0_0_30px_rgba(14,165,233,0.5)] z-20'
-                                                        : isPast
-                                                            ? 'bg-primary/10 border-primary/30'
-                                                            : 'bg-surface border-white/5'
-                                                        }`}
-                                                    animate={{
-                                                        y: isActive ? -15 : 0,
-                                                        scale: isActive ? 1.25 : 1,
-                                                        rotateY: isActive ? 360 : 0,
-                                                        z: isActive ? 50 : 0
-                                                    }}
-                                                    transition={{
-                                                        type: "spring",
-                                                        stiffness: 200,
-                                                        damping: 20,
-                                                        rotateY: { duration: 0.8, ease: "easeInOut" }
-                                                    }}
-                                                >
-                                                    <span className={`material-symbols-outlined text-xl md:text-3xl ${isActive ? 'text-white' : isPast ? 'text-primary' : 'text-slate-600'
-                                                        }`}>
-                                                        {step.icon}
-                                                    </span>
-                                                </motion.div>
-                                            </div>
-
-                                            {/* Label with 3D fade */}
-                                            <motion.span
-                                                className={`text-[10px] md:text-sm font-bold text-center absolute -bottom-10 md:-bottom-12 whitespace-nowrap ${isActive ? 'text-primary' : 'text-slate-600'
-                                                    }`}
-                                                animate={{
-                                                    opacity: isActive ? 1 : 0.4,
-                                                    y: isActive ? 0 : 5,
-                                                    scale: isActive ? 1.1 : 1
-                                                }}
-                                            >
-                                                {step.label}
-                                            </motion.span>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Platform Support Section */}
-                <section className="px-4 sm:px-6 py-16 sm:py-24">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-10 sm:mb-16">
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold leading-tight tracking-tight mb-3">Multi-Platform Ready</h2>
-                            <p className="text-text-muted text-sm sm:text-base">Optimized exports for all major content platforms.</p>
-                        </div>
-                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6">
-                            {platforms.map((platform) => (
-                                <div key={platform.name} className="flex flex-col items-center gap-3 p-4 sm:p-5 rounded-2xl bg-surface border border-white/5 hover:border-primary/50 hover:bg-surface-highlight hover:-translate-y-1 transition-all duration-300 cursor-pointer group">
-                                    <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl group-hover:scale-110 transition-transform">{platform.icon}</span>
-                                    <span className="text-xs sm:text-sm font-medium text-text-muted group-hover:text-white transition-colors">{platform.name}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Core Tools Section */}
-                <section className="px-4 sm:px-6 py-16 sm:py-24 bg-surface/30">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="flex flex-col gap-2 mb-10 sm:mb-16 text-center sm:text-left">
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold leading-tight tracking-tight">Core AI Tools</h2>
-                            <p className="text-text-muted text-sm sm:text-base">Master the core tools in minutes.</p>
-                        </div>
-                        <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-                            {/* Whisper Card */}
-                            <div className="glass-card glass-card-hover flex flex-col overflow-hidden rounded-3xl group">
-                                <div className="w-full h-48 sm:h-56 bg-center bg-no-repeat bg-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUVi_znlflg_LmFTJt6GkrcYn_3tFfdMrn-DCzpWRB3oydnw933LMaYEGWdW4dI7eIjDPa43xG70x9A-9R0_lxMBmYSGA9hZRrQ_RaqkD2vyfAZWIJEY98-9TCAvpqJCFS3sW3X1ZdAJ3rtyDz7GTo1DVy9WbMY5AZU1vBBi0xGhKgpTa35qjPdr6EDhSUGDDJb6lC1md6TBnLWldKWOxYmPZAcXjtoUhjntlxOmTcSrMQkrB1OVJX8EYU71IUusLeUuPyqwM_DfrE")' }}></div>
-                                <div className="flex flex-col gap-3 p-6 sm:p-8">
-                                    <div className="flex items-center gap-3 mb-1">
-                                        <div className="p-2 rounded-lg bg-primary/10">
-                                            <span className="material-symbols-outlined text-primary text-xl">graphic_eq</span>
-                                        </div>
-                                        <p className="text-white text-xl font-bold tracking-tight">Whisper Transcription</p>
-                                    </div>
-                                    <p className="text-text-muted text-sm sm:text-base font-normal leading-relaxed">Flawless audio-to-text with high-detail precision and noise isolation.</p>
-                                    <button className="mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl h-10 px-4 bg-white/5 text-primary border border-white/10 text-xs sm:text-sm font-bold hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
-                                        Explore Whisper
-                                    </button>
-                                </div>
-                            </div>
-                            {/* TTS Card */}
-                            <div className="glass-card glass-card-hover flex flex-col overflow-hidden rounded-3xl group">
-                                <div className="w-full h-48 sm:h-56 bg-center bg-no-repeat bg-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYsummO5izRBfm_TwzyGkmOTm-dzjwIiVRKl0p4TCv1UkcBekkm7LVva2FwoVL9FI6M8ABmQkgnrXXyux79G_neWD-SIdW2Uy3Gk1Z7kbCye8t-iLyrFXmdqlvm197GKpAAcn4MKW1jeUCewFyZIRu-MJJtQA2hv7A-aunpKY0RYxKt-0Ia6r7qKqcWzzbx2gKkC3nQmoE-zGBnpOLEoIJsJvtdLgHM3eHBv_qNhxrg7pJyKnowmwBgTNLTYKUiZg6oSSV8WwwreV9")' }}></div>
-                                <div className="flex flex-col gap-3 p-6 sm:p-8">
-                                    <div className="flex items-center gap-3 mb-1">
-                                        <div className="p-2 rounded-lg bg-primary/10">
-                                            <span className="material-symbols-outlined text-primary text-xl">record_voice_over</span>
-                                        </div>
-                                        <p className="text-white text-xl font-bold tracking-tight">TTS Voiceover</p>
-                                    </div>
-                                    <p className="text-text-muted text-sm sm:text-base font-normal leading-relaxed">Human-grade AI voices across 40+ languages.</p>
-                                    <button className="mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl h-10 px-4 bg-white/5 text-primary border border-white/10 text-xs sm:text-sm font-bold hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
-                                        Try Voiceover
-                                    </button>
-                                </div>
-                            </div>
-                            {/* GPT Card */}
-                            <div className="glass-card glass-card-hover flex flex-col overflow-hidden rounded-3xl group">
-                                <div className="w-full h-48 sm:h-56 bg-center bg-no-repeat bg-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGLGzT0wEOwlIS9BwYWPeDiMaRN_ymp2IEWagAZ2CrqBbc6ITy_T5yxyCTW9hKdJj0y3u6PK4d2RcxoPklYVUGOzLDVXuGbDwImpLp8q3HuTTrYgStNUc7cewy9_Z8hB84B8mduRo8q8Y7jsPuRaWOr4DR0l9_nGYQ-nTzzioVRoE6-GiOHVCCgTUxO7RH0HqoVN8L47TOMsblHN4W4GPCXJXV5sCJVN3gA9tkiVlcFblVIFE_MPb_0ZGldvMewuRqjretnTbQKSoK")' }}></div>
-                                <div className="flex flex-col gap-3 p-6 sm:p-8">
-                                    <div className="flex items-center gap-3 mb-1">
-                                        <div className="p-2 rounded-lg bg-primary/10">
-                                            <span className="material-symbols-outlined text-primary text-xl">auto_fix_high</span>
-                                        </div>
-                                        <p className="text-white text-xl font-bold tracking-tight">GPT Scripting</p>
-                                    </div>
-                                    <p className="text-text-muted text-sm sm:text-base font-normal leading-relaxed">From idea to storyboard with one prompt.</p>
-                                    <button className="mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl h-10 px-4 bg-white/5 text-primary border border-white/10 text-xs sm:text-sm font-bold hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
-                                        Generate Scripts
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* SaaS Features Section */}
-                <section className="px-4 sm:px-6 py-16 sm:py-24">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-10 sm:mb-16">
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold leading-tight tracking-tight mb-3">Enterprise-Ready Features</h2>
-                            <p className="text-text-muted text-sm sm:text-base">Built for teams, designed for scale.</p>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                            {[
-                                { icon: 'domain', title: 'Multi-Tenancy', desc: 'Isolated workspaces' },
-                                { icon: 'group', title: 'Team RBAC', desc: 'Owner, Admin, Editor' },
-                                { icon: 'payments', title: 'Tiered Billing', desc: 'Usage metering' },
-                                { icon: 'analytics', title: 'Analytics', desc: 'Usage insights' },
-                            ].map((feature) => (
-                                <div key={feature.title} className="p-6 rounded-2xl bg-surface border border-white/5 flex flex-col items-center text-center gap-4 hover:bg-surface-highlight transition-colors duration-300 group">
-                                    <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                                        <span className="material-symbols-outlined text-primary text-2xl">{feature.icon}</span>
-                                    </div>
-                                    <div>
-                                        <p className="text-base sm:text-lg font-bold text-white mb-1">{feature.title}</p>
-                                        <p className="text-xs sm:text-sm text-text-muted">{feature.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Pricing Section */}
-                <section className="px-4 sm:px-6 py-16 sm:py-24 mb-24 sm:mb-28">
-                    <div className="max-w-5xl mx-auto">
-                        <div className="text-center mb-10 sm:mb-16">
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold leading-tight tracking-tight mb-3">Simple, Transparent Pricing</h2>
-                            <p className="text-text-muted text-sm sm:text-base">Start free, scale as you grow.</p>
-                        </div>
-                        <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
-                            {pricingPlans.map((plan) => (
-                                <div key={plan.name} className={`p-6 sm:p-8 rounded-3xl border flex flex-col gap-4 relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${plan.popular
-                                    ? 'bg-gradient-to-b from-primary/10 to-surface border-primary/50 shadow-2xl shadow-primary/10'
-                                    : 'bg-surface border-white/5 hover:border-white/10'}`}>
-
-                                    {plan.popular && (
-                                        <div className="absolute top-0 right-0 p-4">
-                                            <span className="inline-flex items-center px-2 py-1 rounded bg-primary text-[10px] font-bold text-white uppercase tracking-widest">
-                                                Popular
-                                            </span>
-                                        </div>
-                                    )}
-
-                                    <div className="mb-2">
-                                        <p className="text-lg sm:text-xl font-bold text-white">{plan.name}</p>
-                                        <div className="flex items-baseline gap-1 mt-2">
-                                            <p className="text-3xl sm:text-4xl font-black text-white">{plan.price}</p>
-                                            {plan.price !== '$0' && <span className="text-text-muted text-sm">/month</span>}
-                                        </div>
-                                    </div>
-
-                                    <div className="h-px w-full bg-white/10 my-2"></div>
-
-                                    <ul className="space-y-3 text-sm text-text-muted flex-1">
-                                        {plan.features.map((f) => (
-                                            <li key={f} className="flex items-center gap-3">
-                                                <span className={`material-symbols-outlined text-lg ${plan.popular ? 'text-primary' : 'text-slate-500'}`}>check_circle</span>
-                                                <span className="text-slate-300">{f}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-
-                                    <button className={`mt-6 w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 ${plan.popular
-                                        ? 'bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/25'
-                                        : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'}`}>
-                                        {plan.name === 'Free Trial' ? 'Start Free' : 'Get Started'}
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Sticky Bottom CTA */}
-                <div className="fixed bottom-0 left-0 right-0 p-4 pb-8 border-t border-white/5 bg-background/80 backdrop-blur-xl z-50">
-                    <div className="max-w-md mx-auto flex items-center gap-4">
-                        <div className="hidden sm:block flex-1">
-                            <p className="text-white font-bold text-sm">Ready to automate?</p>
-                            <p className="text-text-muted text-xs">Join 10,000+ creators today.</p>
-                        </div>
-                        <button className="flex-1 cursor-pointer items-center justify-center rounded-xl h-12 bg-primary hover:bg-primary-dark text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
-                            Start Your Setup
-                        </button>
-                    </div>
+            <div className="absolute bottom-10 right-14 flex flex-col items-end gap-1">
+                <span className="hud-text text-xs opacity-70">F/1.4_MASTER_LENS</span>
+                <span className="hud-text text-[10px] text-white/40">CALIBRATING_OPTICS...</span>
+                <div className="w-24 h-[2px] bg-primary/20 mt-2">
+                    <div className="w-1/3 h-full bg-primary animate-[pulse_2s_infinite]"></div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default LandingIntro;
+// ----------------------------------------------------
+// MAIN PAGE COMPONENT (SCROLLYTELLING)
+// ----------------------------------------------------
+const LandingIntro: React.FC = () => {
+    const targetRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+    });
 
-const TypingEffect: React.FC<{ words: string[] }> = ({ words }) => {
-    const [index, setIndex] = useState(0);
-    const [subIndex, setSubIndex] = useState(0);
-    const [reverse, setReverse] = useState(false);
-    const [blink, setBlink] = useState(true);
+    // We map custom vertical scroll progress to horizontal translation
+    // 0% scroll -> 0 horizontal
+    // 100% scroll -> -66.66% horizontal (moving left by 2 screen widths to show 3 total panels)
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.66%"]);
 
-    // Blinking cursor
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setBlink((prev) => !prev);
-        }, 500);
-        return () => clearTimeout(timeout);
-    }, [blink]);
-
-    // Typing logic
-    useEffect(() => {
-        if (subIndex === words[index].length + 1 && !reverse) {
-            // Finished typing word, wait before deleting
-            const timeout = setTimeout(() => {
-                setReverse(true);
-            }, 3000);
-            return () => clearTimeout(timeout);
-        }
-
-        if (subIndex === 0 && reverse) {
-            // Finished deleting, move to next word
-            setReverse(false);
-            setIndex((prev) => (prev + 1) % words.length);
-            return;
-        }
-
-        const timeout = setTimeout(() => {
-            setSubIndex((prev) => prev + (reverse ? -1 : 1));
-        }, reverse ? 30 : 50); // Typing speed vs deleting speed
-
-        return () => clearTimeout(timeout);
-    }, [subIndex, index, reverse, words]);
+    // Animate opacity of 3D canvas based on scroll (fade out slightly as we move away from hero)
+    const canvasOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [1, 0.3, 0.1]);
+    const canvasScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
     return (
-        <span>
-            {words[index].substring(0, subIndex)}
-            <span className={`inline-block w-0.5 h-4 ml-1 bg-primary align-middle ${blink ? 'opacity-100' : 'opacity-0'}`}></span>
-        </span>
+        <div className="bg-carbon text-text-main font-sans min-h-screen selection:bg-primary/30 selection:text-white">
+            <HUDOverlays />
+
+            {/* Top Navigation Bar - Fixed */}
+            <motion.div
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="fixed top-0 left-0 right-0 z-40 flex items-center bg-white/[0.04] backdrop-blur-2xl p-4 sm:p-6 justify-between border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]"
+            >
+                <div className="flex items-center gap-4 group cursor-pointer">
+                    <div className="size-2 bg-primary/80 group-hover:bg-primary group-hover:shadow-[0_0_10px_#FFB000] rounded-sm transition-all duration-300"></div>
+                    <div className="size-2 bg-primary/40 group-hover:bg-primary/80 rounded-sm transition-all duration-300 delay-75"></div>
+                    <div className="size-2 bg-primary/20 group-hover:bg-primary/50 rounded-sm transition-all duration-300 delay-150"></div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-xl hud-glow">photo_camera</span>
+                    <h2 className="text-white text-lg font-bold tracking-[0.2em] uppercase">Rolit<span className="text-primary font-mono ml-2">v2.0</span></h2>
+                </div>
+
+                <button className="hidden sm:flex items-center gap-2 text-xs font-mono tracking-widest bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary px-6 py-2 transition-all">
+                    [ LOGIN_SYS ]
+                </button>
+            </motion.div>
+
+            {/* Fixed WebGL Background Container */}
+            <motion.div
+                className="fixed inset-0 w-full h-screen z-0 pointer-events-none"
+                style={{ opacity: canvasOpacity, scale: canvasScale }}
+            >
+                <Canvas shadows camera={{ position: [0, 0, 8], fov: 35 }}>
+                    <Environment preset="city" />
+                    <ambientLight intensity={0.2} />
+                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#FFB000" />
+                    <spotLight position={[-10, -10, -10]} angle={0.15} penumbra={1} intensity={1} color="#ffffff" />
+                    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+                        <CameraLens />
+                    </Float>
+                    <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={10} blur={2} far={4} color="#000000" />
+                </Canvas>
+            </motion.div>
+
+            {/* 
+                SCROLLYTELLING WRAPPER 
+                Height dictates how much vertical scrolling is needed to complete the horizontal track.
+                Using 400vh gives a smooth scrolling experience.
+            */}
+            <div ref={targetRef} className="relative h-[400vh]">
+
+                {/* 
+                    STICKY VIEWPORT
+                    Stays fixed on screen while the user scrolls down, moving the horizontal container left.
+                */}
+                <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+
+                    {/* HORIZONTAL TRACK */}
+                    <motion.div style={{ x }} className="flex w-[300vw]">
+
+                        {/* CHAPTER 1: HERO */}
+                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-primary/10 rounded-full blur-[100px]"></div>
+                                <div className="absolute bottom-1/4 left-1/3 w-56 h-56 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
+                            <div className="max-w-3xl ml-0 md:ml-12 pointer-events-none bg-white/[0.03] backdrop-blur-xl border border-white/[0.07] p-10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)] relative">
+                                {/* Glass inner top-edge highlight */}
+                                <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    className="flex items-center gap-3 mb-6"
+                                >
+                                    <div className="h-[1px] w-12 bg-primary"></div>
+                                    <span className="hud-text text-xs border border-primary/30 px-3 py-1 bg-primary/5">SYS_BOOT_COMPLETE</span>
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
+                                    className="text-white text-5xl sm:text-7xl md:text-[5.5rem] font-light leading-[1.1] tracking-tight mb-8"
+                                >
+                                    Capture Reality.<br />
+                                    <span className="font-bold text-gradient">Process Infinity.</span>
+                                </motion.h1>
+
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                    className="text-slate-400 text-lg sm:text-xl font-light leading-relaxed max-w-xl mb-12 border-l border-white/10 pl-6"
+                                >
+                                    The ultimate Copilot for content creators. From initial spark to final render, armed with production-grade AI tooling in a precision interface.
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.8 }}
+                                    className="flex flex-col sm:flex-row gap-5 pointer-events-auto"
+                                >
+                                    <button className="group relative flex items-center justify-center h-14 px-8 bg-primary hover:bg-primary-dark text-background font-mono font-bold tracking-widest text-sm transition-all overflow-hidden">
+                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                                        <span className="relative z-10 flex items-center gap-2">
+                                            [ INITIATE_TRIAL ]
+                                            <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                        </span>
+                                    </button>
+                                    <button className="flex items-center justify-center h-14 px-8 bg-transparent hover:bg-white/5 text-white border border-white/20 hover:border-white/50 font-mono tracking-widest text-sm transition-all">
+                                        [ VIEW_DIAGNOSTICS ]
+                                    </button>
+                                </motion.div>
+                            </div>
+                        </section>
+
+                        {/* CHAPTER 2: FEATURES */}
+                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/8 rounded-full blur-[120px]"></div>
+                                <div className="absolute top-1/4 right-1/4 w-48 h-48 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
+                            <div className="max-w-6xl w-full mx-auto">
+                                <div className="flex items-center gap-4 mb-16">
+                                    <h2 className="text-white text-4xl sm:text-6xl font-light tracking-tight">Technical <span className="font-bold">Specs</span></h2>
+                                    <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/50 to-transparent"></div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pointer-events-auto">
+                                    {[
+                                        { id: 'MOD_01', title: 'Whisper Transcode', desc: 'Flawless audio-to-text with high-detail precision, punctuation generation, and noise isolation.', icon: 'graphic_eq' },
+                                        { id: 'MOD_02', title: 'Neural Voice Clone', desc: 'Human-grade AI voices that capture emotion. Clone your own vocal signature with 30s of audio payload.', icon: 'record_voice_over' },
+                                        { id: 'MOD_03', title: 'Script Engine V4', desc: 'Synthesize full storyboards from a single sentence prompt using advanced GPT-4 architecture.', icon: 'auto_fix_high' },
+                                    ].map((feat) => (
+                                        <div key={feat.id} className="group p-8 relative overflow-hidden transition-all duration-500 bg-white/[0.05] backdrop-blur-2xl border border-white/10 hover:border-primary/40 hover:bg-white/[0.08] hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_30px_rgba(255,176,0,0.08),inset_0_1px_0_rgba(255,255,255,0.1)]">
+                                            {/* Glass top-edge highlight */}
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+                                            {/* decorative corners */}
+                                            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-primary/30 group-hover:border-primary transition-colors"></div>
+                                            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-primary/30 group-hover:border-primary transition-colors"></div>
+                                            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-primary/30 group-hover:border-primary transition-colors"></div>
+                                            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-primary/30 group-hover:border-primary transition-colors"></div>
+
+                                            <div className="flex justify-between items-start mb-8">
+                                                <span className="material-symbols-outlined text-4xl text-slate-500 group-hover:text-primary transition-colors drop-shadow-lg">{feat.icon}</span>
+                                                <span className="hud-text text-[10px] text-primary/60 border border-primary/20 px-2 py-0.5 bg-primary/5 backdrop-blur-sm">{feat.id}</span>
+                                            </div>
+                                            <h3 className="text-white text-2xl font-bold mb-4">{feat.title}</h3>
+                                            <p className="text-slate-400 font-light leading-relaxed">{feat.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* CHAPTER 3: PLATFORMS AND PRICING */}
+                        <section className="w-screen h-screen flex flex-col justify-center px-10 sm:px-24 z-10 relative">
+                            {/* Ambient light blobs */}
+                            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[100px]"></div>
+                                <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-white/5 rounded-full blur-[80px]"></div>
+                            </div>
+                            <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 pointer-events-auto">
+
+                                {/* Export Targets */}
+                                <div>
+                                    <div className="flex flex-col gap-2 mb-10">
+                                        <span className="hud-text text-sm">Target Systems</span>
+                                        <h2 className="text-white text-4xl font-light">Export Protocol</h2>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {['Reels', 'Shorts', 'YouTube', 'TikTok'].map((platform) => (
+                                            <div key={platform} className="flex items-center justify-between p-4 border border-white/10 bg-white/[0.04] backdrop-blur-md hover:bg-primary/10 hover:border-primary/30 transition-all group cursor-crosshair shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                                                <span className="text-slate-300 font-mono text-sm group-hover:text-white transition-colors">{platform}</span>
+                                                <span className="material-symbols-outlined text-primary/50 group-hover:text-primary text-sm">check_circle</span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="mt-12 p-6 border border-white/10 bg-white/[0.04] backdrop-blur-xl relative overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.07)]">
+                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+                                        <p className="font-mono text-primary text-xs mb-2">SYSTEM_STATUS_NORMAL</p>
+                                        <p className="text-slate-300 text-sm font-light">"Built for ambitious creators and scaling teams. Multi-tenant architecture with granular RBAC permissions."</p>
+                                    </div>
+                                </div>
+
+                                {/* Access Tiers */}
+                                <div>
+                                    <div className="flex flex-col gap-2 mb-10">
+                                        <span className="hud-text text-sm hover:hud-glow">Clearance Levels</span>
+                                        <h2 className="text-white text-4xl font-light">Acquire Access</h2>
+                                    </div>
+
+                                    <div className="flex flex-col gap-6">
+                                        {/* Tier 1 */}
+                                        <div className="flex items-center justify-between p-6 border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:bg-white/[0.08] transition-all shadow-[0_4px_30px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.07)] relative overflow-hidden">
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                                            <div>
+                                                <h4 className="text-white font-bold text-xl mb-1">Creator Tier</h4>
+                                                <p className="text-slate-500 text-sm font-mono">$29.00 / CYCLE</p>
+                                            </div>
+                                            <button className="px-6 py-2 border border-primary/60 text-primary font-mono text-xs hover:bg-primary hover:text-black hover:border-primary transition-all backdrop-blur-sm">
+                                                [ SELECT ]
+                                            </button>
+                                        </div>
+
+                                        {/* Tier 2 */}
+                                        <div className="flex items-center justify-between p-6 border border-primary/60 bg-white/[0.06] backdrop-blur-xl relative transform hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(255,176,0,0.15),inset_0_1px_0_rgba(255,176,0,0.15)] overflow-hidden">
+                                            {/* Glass amber inner highlight */}
+                                            <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+                                            <div className="absolute -top-3 left-6 bg-primary/90 backdrop-blur-sm text-black font-mono text-[10px] font-bold px-2 py-0.5 tracking-wider shadow-[0_0_10px_rgba(255,176,0,0.5)]">
+                                                RECOMMENDED_SYS
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white font-bold text-xl mb-1">Team Tier</h4>
+                                                <p className="text-primary text-sm font-mono">$79.00 / CYCLE</p>
+                                            </div>
+                                            <button className="px-6 py-2 bg-primary/90 backdrop-blur-sm text-black font-mono text-xs font-bold hover:brightness-110 transition-all shadow-[0_0_20px_rgba(255,176,0,0.5)]">
+                                                [ UPGRADE ]
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </motion.div>
+                </div>
+            </div>
+
+        </div>
     );
 };
+
+export default LandingIntro;
